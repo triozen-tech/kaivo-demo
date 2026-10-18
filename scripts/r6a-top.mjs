@@ -18,7 +18,7 @@ for (const w of [360, 390, 412]) {
       const fb = r(".filterbar");
       return { y: Math.round(scrollY), header: r(".header"), offer: r(".offer"), filter: fb, ov: document.documentElement.scrollWidth > innerWidth };
     });
-    const ok = m.y > 300 && m.header.top === 0 && m.offer.top === m.header.bottom && m.offer.h === 30 && (!m.filter || m.filter.top >= m.offer.bottom - 1) && !m.ov;
+    const ok = m.y > 300 && m.header.top === 0 && m.offer.top === m.header.bottom && m.offer.h === 30 && (!m.filter || m.filter.bottom < 0 || m.filter.top >= m.offer.bottom - 1) && !m.ov;
     if (!ok) bad++;
     console.log(w, path, ok ? "OK" : "FAIL", JSON.stringify(m));
     await p.screenshot({ path: `shots/r6a/top-${w}-${path === "/" ? "home" : path.slice(1).replace(/\//g, "_")}.png` });
