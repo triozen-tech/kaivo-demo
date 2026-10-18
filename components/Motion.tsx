@@ -57,13 +57,13 @@ export function Motion() {
       if (title) {
         gsap.set(title, { opacity: 0 });
         gsap.set([kicker, lead, cta], { opacity: 0, y: 18 });
-        if (pic) gsap.fromTo(pic, { scale: 1.14 }, { scale: 1, duration: 2.6, ease: "power2.out" });
+        if (pic) gsap.fromTo(pic, { scale: 1.14 }, { scale: 1, duration: 2.6, ease: "power2.out", delay: document.documentElement.classList.contains("intro") ? 0.8 : 0 });
         const play = () => {
           if (cancelled) return;
           ctx.add(() => { // created after the fonts load, still reverted with the rest
             const split = SplitText.create(title, { type: "lines", mask: "lines", linesClass: "hero-line" });
             gsap.set(title, { opacity: 1 });
-            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: document.documentElement.classList.contains("intro") ? 1 : 0 });
             tl.to(kicker, { opacity: 1, y: 0, duration: 0.7, clearProps: clear }, 0)
               .from(split.lines, { yPercent: 110, duration: 1.1, stagger: 0.13 }, 0.1)
               .to(lead, { opacity: 1, y: 0, duration: 0.8, clearProps: clear }, 0.7)

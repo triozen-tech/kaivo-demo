@@ -19,7 +19,7 @@ export function ProductBuy({ slug }: { slug: string }) {
         <Stepper value={qty} onChange={(n) => setQty(Math.max(1, n))} label="Quantity" />
       </div>
       <div className="buy-actions">
-        <button type="button" className="btn btn-solid" onClick={async () => {
+        <button type="button" className="btn btn-solid" data-cursor="Add" onClick={async () => {
           if (flying.current) return;
           flying.current = true;
           await flyToCart(document.querySelector<HTMLElement>(".pdp-media"));

@@ -9,9 +9,11 @@ import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
 import { OfferStrip } from "@/components/OfferStrip";
 import { Motion } from "@/components/Motion";
+import { Cursor } from "@/components/Cursor";
+import { Intro } from "@/components/Intro";
 
 /** Motion is always on; only ?static=1 turns it off. `mo` = motion on, `mo-hold` = pieces wait for the first animation frame (cleared by Motion, or after 3 s if scripts fail). */
-const bootScript = `(function(){var d=document.documentElement;if(/[?&]static=1/.test(location.search))return;d.classList.add("mo","mo-hold");setTimeout(function(){d.classList.remove("mo-hold")},3000)})()`;
+const bootScript = `(function(){var d=document.documentElement;if(/[?&]static=1/.test(location.search))return;d.classList.add("mo","mo-hold");var i=0;try{i=location.pathname==="/"&&!sessionStorage.getItem("kaivo-intro")}catch(e){}if(i)d.classList.add("intro");setTimeout(function(){d.classList.remove("mo-hold","intro")},3000)})()`;
 
 export const metadata: Metadata = {
   title: { default: "Kaivo | demo store", template: "%s | Kaivo demo store" },
@@ -31,6 +33,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <CartDrawer />
           <Motion />
+          <Cursor />
+          <Intro />
         </CartProvider>
       </body>
     </html>

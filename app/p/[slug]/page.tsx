@@ -8,6 +8,7 @@ import { ProductGallery } from "@/components/ProductGallery";
 import { Price } from "@/components/Price";
 import { ProductBuy } from "@/components/ProductBuy";
 import { ProductCard } from "@/components/ProductCard";
+import { StickyBuy } from "@/components/StickyBuy";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => products.map((p) => ({ slug: p.slug }));
@@ -57,6 +58,7 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
           </div>
         </div>
       </section>
+      <StickyBuy slug={p.slug} name={p.name} price={p.price} image={p.image} />
 
       <section className="section container" aria-labelledby="also">
         <div className="section-head" data-reveal><h2 id="also" className="h2">You may also like</h2></div>

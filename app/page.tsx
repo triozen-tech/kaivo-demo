@@ -40,7 +40,7 @@ export default function Home() {
         </div>
         <div className="cat-grid" data-stagger>
           {categories.map((c) => (
-            <MorphLink key={c.slug} href={`/c/${c.slug}`} className="cat-tile" morph=".cat-img">
+            <MorphLink key={c.slug} href={`/c/${c.slug}`} className="cat-tile" morph=".cat-img" data-cursor="View">
               <span className="cat-img"><Pic name={c.banner} alt="" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 40vw" position={c.tile} /></span>
               <span className="cat-meta">
                 <span className="cat-name">{c.name}</span>
