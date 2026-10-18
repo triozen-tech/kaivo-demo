@@ -27,7 +27,7 @@ export function CategoryGrid({ products }: { products: Product[] }) {
           </select>
         </label>
       </div>
-      <div className="grid">
+      <div className="grid" data-stagger>
         {list.map((p) => (
           <ProductCard key={p.slug} product={p} />
         ))}

@@ -7,6 +7,10 @@ import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
+import { Motion } from "@/components/Motion";
+
+/** Motion is always on; only ?static=1 turns it off. `mo` = motion on, `mo-hold` = pieces wait for the first animation frame (cleared by Motion, or after 3 s if scripts fail). */
+const bootScript = `(function(){var d=document.documentElement;if(/[?&]static=1/.test(location.search))return;d.classList.add("mo","mo-hold");setTimeout(function(){d.classList.remove("mo-hold")},3000)})()`;
 
 export const metadata: Metadata = {
   title: { default: "Kaivo · Home and lifestyle", template: "%s · Kaivo" },
@@ -15,7 +19,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: bootScript }} /></head>
       <body>
         <CartProvider>
           <a href="#main" className="skip">Skip to content</a>
@@ -23,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
           <Footer />
           <CartDrawer />
+          <Motion />
         </CartProvider>
       </body>
     </html>

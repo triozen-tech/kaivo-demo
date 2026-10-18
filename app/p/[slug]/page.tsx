@@ -31,10 +31,10 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
       </div>
 
       <section className="container pdp">
-        <div className="pdp-media">
+        <div className="pdp-media" data-img-reveal>
           <Pic name={p.image} alt={p.name} sizes="(max-width: 900px) 100vw, 50vw" priority />
         </div>
-        <div className="pdp-info">
+        <div className="pdp-info" data-stagger>
           <p className="label">{cat.name}</p>
           <h1 className="h1">{p.name}</h1>
           <Price value={p.price} className="price-lg" />
@@ -54,8 +54,8 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
       </section>
 
       <section className="section container" aria-labelledby="also">
-        <div className="section-head"><h2 id="also" className="h2">You may also like</h2></div>
-        <div className="grid">{related.map((r) => <ProductCard key={r.slug} product={r} />)}</div>
+        <div className="section-head" data-reveal><h2 id="also" className="h2">You may also like</h2></div>
+        <div className="grid" data-stagger>{related.map((r) => <ProductCard key={r.slug} product={r} />)}</div>
       </section>
     </>
   );

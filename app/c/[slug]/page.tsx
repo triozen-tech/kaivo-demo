@@ -19,12 +19,12 @@ export default async function CategoryPage({ params }: PageProps<"/c/[slug]">) {
   return (
     <>
       <section className="cat-hero container">
-        <div className="cat-hero-copy">
+        <div className="cat-hero-copy" data-stagger>
           <p className="label">Category</p>
           <h1 className="display">{cat.name}</h1>
           <p className="lead">{cat.tagline}</p>
         </div>
-        <div className="cat-hero-img">
+        <div className="cat-hero-img" data-img-reveal>
           <Pic name={cat.banner} alt="" sizes="(max-width: 900px) 100vw, 60vw" position={cat.focal} priority />
         </div>
       </section>

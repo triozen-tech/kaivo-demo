@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "./CartProvider";
 import { Stepper } from "./Stepper";
+import { flyToCart } from "@/lib/fly";
 
 export function ProductBuy({ slug }: { slug: string }) {
   const [qty, setQty] = useState(1);
-  const { add } = useCart();
+  const { add, setDrawerOpen } = useCart();
+  const flying = useRef(false);
   const router = useRouter();
 
   return (
@@ -17,7 +19,13 @@ export function ProductBuy({ slug }: { slug: string }) {
         <Stepper value={qty} onChange={(n) => setQty(Math.max(1, n))} label="Quantity" />
       </div>
       <div className="buy-actions">
-        <button type="button" className="btn btn-solid" onClick={() => add(slug, qty)}>Add to cart</button>
+        <button type="button" className="btn btn-solid" onClick={async () => {
+          if (flying.current) return;
+          flying.current = true;
+          await flyToCart(document.querySelector<HTMLElement>(".pdp-media"));
+          add(slug, qty, false); // the badge bumps as the picture lands
+          setTimeout(() => { setDrawerOpen(true); flying.current = false; }, document.documentElement.classList.contains("mo") ? 380 : 0);
+        }}>Add to cart</button>
         <button
           type="button"
           className="btn btn-outline"

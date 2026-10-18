@@ -14,7 +14,8 @@ const browser = await chromium.launch({ channel: "chrome" }).catch(() => chromiu
 const problems = [];
 
 for (const [w, h] of sizes) {
-  const ctx = await browser.newContext({ viewport: { width: w, height: h } });
+  // phones and tablets are real touch contexts (no smooth-scroll, no parallax); 1440 is mouse + trackpad
+  const ctx = await browser.newContext({ viewport: { width: w, height: h }, ...(w < 1000 ? { isMobile: true, hasTouch: true } : {}) });
   const page = await ctx.newPage();
   page.on("console", (m) => { if (m.type() === "error") problems.push(`${w}: console ${m.text()}`); });
   page.on("pageerror", (e) => problems.push(`${w}: pageerror ${e.message}`));
@@ -43,14 +44,18 @@ for (const [w, h] of sizes) {
 
   // add to cart -> drawer
   await page.getByRole("button", { name: "Add to cart" }).click();
-  await page.waitForTimeout(700);
+  await page.waitForSelector(".drawer-right.is-open", { timeout: 5000 });   // after the fly-to-cart
+  await page.waitForTimeout(1200);
   await shot("drawer", false);
   await page.keyboard.press("Escape");
+  await page.waitForTimeout(700);
   await load("/p/jar-pantry");
   await page.getByRole("button", { name: "Increase quantity" }).click();
   await page.getByRole("button", { name: "Add to cart" }).click();
-  await page.waitForTimeout(500);
+  await page.waitForSelector(".drawer-right.is-open", { timeout: 5000 });
+  await page.waitForTimeout(600);
   await page.keyboard.press("Escape");
+  await page.waitForTimeout(700);
 
   await load("/cart"); await shot("cart");
   await load("/checkout");

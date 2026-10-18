@@ -4,6 +4,7 @@ import { featuredProducts } from "@/data/products";
 import { Pic } from "@/components/ProductImage";
 import { ProductCard } from "@/components/ProductCard";
 import { ArrowIcon } from "@/components/Icons";
+import { Marquee } from "@/components/Marquee";
 
 const lifestyle = [
   { img: "l-1", alt: "A cream kettle steaming on a wooden counter beside a cup and a plant", pos: "40% 50%", caption: "Slow mornings" },
@@ -23,21 +24,21 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="hero-img">
-          <Pic name="hero" alt="Frosted bottles, a cup and a jar arranged on curved cream steps in soft light" sizes="100vw" position="70% 50%" priority />
+          <div className="hero-pic" data-hero-pic><Pic name="hero" alt="Frosted bottles, a cup and a jar arranged on curved cream steps in soft light" sizes="100vw" position="70% 50%" priority /></div>
         </div>
         <div className="container hero-copy">
-          <p className="label">New season</p>
-          <h1 className="display">Quiet things for the way you live.</h1>
-          <p className="lead">Tumblers, retro kitchen, jars and daily rituals. Made to be used, and to be looked at.</p>
-          <Link href="/c/tumblers" className="btn btn-solid">Shop the collection <ArrowIcon /></Link>
+          <p className="label" data-hero="kicker">New season</p>
+          <h1 className="display" data-hero="title">Quiet things for the way you live.</h1>
+          <p className="lead" data-hero="lead">Tumblers, retro kitchen, jars and daily rituals. Made to be used, and to be looked at.</p>
+          <Link href="/c/tumblers" className="btn btn-solid" data-hero="cta">Shop the collection <ArrowIcon /></Link>
         </div>
       </section>
 
       <section className="section container" aria-labelledby="cats">
-        <div className="section-head">
+        <div className="section-head" data-reveal>
           <h2 id="cats" className="h2">Shop by category</h2>
         </div>
-        <div className="cat-grid">
+        <div className="cat-grid" data-stagger>
           {categories.map((c) => (
             <Link key={c.slug} href={`/c/${c.slug}`} className="cat-tile">
               <span className="cat-img"><Pic name={c.banner} alt="" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 40vw" position={c.focal} /></span>
@@ -51,23 +52,25 @@ export default function Home() {
       </section>
 
       <section className="section container" aria-labelledby="feat">
-        <div className="section-head">
+        <div className="section-head" data-reveal>
           <h2 id="feat" className="h2">Featured</h2>
           <p className="muted">A few things we reach for every day.</p>
         </div>
-        <div className="grid">
+        <div className="grid" data-stagger>
           {feat.map((p) => <ProductCard key={p.slug} product={p} />)}
         </div>
       </section>
 
+      <Marquee />
+
       <section className="section container" aria-labelledby="life">
-        <div className="section-head">
+        <div className="section-head" data-reveal>
           <h2 id="life" className="h2">Made for everyday</h2>
         </div>
-        <div className="life-grid">
+        <div className="life-grid" data-stagger>
           {lifestyle.map((l) => (
             <figure key={l.img} className="life-item">
-              <div className="life-img"><Pic name={l.img} alt={l.alt} sizes="(max-width: 800px) 100vw, 40vw" position={l.pos} /></div>
+              <div className="life-img"><div className="life-pic" data-parallax="7"><Pic name={l.img} alt={l.alt} sizes="(max-width: 800px) 100vw, 40vw" position={l.pos} /></div></div>
               <figcaption>{l.caption}</figcaption>
             </figure>
           ))}
@@ -75,7 +78,7 @@ export default function Home() {
       </section>
 
       <section className="trust" aria-label="Why shop with Kaivo">
-        <div className="container trust-grid">
+        <div className="container trust-grid" data-stagger>
           {trust.map((t) => (
             <div key={t.title} className="trust-item">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d={t.d} stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>

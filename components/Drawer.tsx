@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { CloseIcon } from "./Icons";
+import { getLenis } from "@/lib/motion";
 
 /** Accessible slide-in panel: overlay, Esc, focus trap-lite, scroll lock. */
 export function Drawer({
@@ -14,6 +15,7 @@ export function Drawer({
     const prev = document.activeElement as HTMLElement | null;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    getLenis()?.stop();
     panel.current?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -29,6 +31,7 @@ export function Drawer({
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
+      getLenis()?.start();
       prev?.focus?.();
     };
   }, [open, onClose]);
@@ -36,7 +39,7 @@ export function Drawer({
   return (
     <div className={`drawer drawer-${side}${open ? " is-open" : ""}`} aria-hidden={!open} inert={!open}>
       <div className="drawer-scrim" onClick={onClose} />
-      <div className="drawer-panel" role="dialog" aria-modal="true" aria-label={title} tabIndex={-1} ref={panel}>
+      <div className="drawer-panel" data-lenis-prevent role="dialog" aria-modal="true" aria-label={title} tabIndex={-1} ref={panel}>
         <div className="drawer-head">
           <h2>{title}</h2>
           <button type="button" className="icon-btn" onClick={onClose} aria-label={`Close ${title.toLowerCase()}`}><CloseIcon /></button>

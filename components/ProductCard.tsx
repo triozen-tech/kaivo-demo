@@ -8,6 +8,7 @@ export function ProductCard({ product }: { product: Product }) {
   const cat = categories.find((c) => c.slug === product.category);
   return (
     <Link href={`/p/${product.slug}`} className="pcard">
+      <span className="pcard-in">
       <span className="pcard-img">
         <Pic name={product.image} alt={product.name} sizes="(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 380px" />
       </span>
@@ -15,6 +16,7 @@ export function ProductCard({ product }: { product: Product }) {
         <span className="pcard-cat">{cat?.name}</span>
         <span className="pcard-name">{product.name}</span>
         <Price value={product.price} />
+      </span>
       </span>
     </Link>
   );
