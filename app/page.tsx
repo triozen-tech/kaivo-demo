@@ -1,3 +1,4 @@
+import { HeroPicture } from "@/components/HeroPicture";
 import Link from "next/link";
 import { categories } from "@/data/categories";
 import { featuredProducts } from "@/data/products";
@@ -20,7 +21,7 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="hero-img">
-          <div className="hero-pic" data-hero-pic><Pic name="hero" alt="Frosted bottles, a cup and a jar arranged on curved cream steps in soft light" sizes="100vw" position="70% 50%" priority /></div>
+          <div className="hero-pic" data-hero-pic><HeroPicture alt="Frosted bottles, a cup and a jar arranged on curved cream steps in soft light" /></div>
         </div>
         <div className="container hero-copy">
           <p className="hero-pill" data-hero="kicker"><i aria-hidden="true" />New season · Free sample shipping</p>

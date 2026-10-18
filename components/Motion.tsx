@@ -113,7 +113,7 @@ export function Motion() {
       }
 
       // —— colour shift: the page background eases between cream, pale sage and pale clay ——
-      const tints: Record<string, string> = { cream: "#f4efe7", sage: "#eaf0e3", clay: "#f6e8de" };
+      const tints: Record<string, string> = { cream: "#f4efe7", sage: "#eaf0e3", clay: "#f4ebdc" };
       let from = tints.cream;
       gsap.utils.toArray<HTMLElement>("[data-tint]").forEach((sec) => {
         const to = tints[sec.dataset.tint || "cream"];

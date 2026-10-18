@@ -515,6 +515,7 @@ html.intro .intro-curtain { display: grid; }
 .sticky-buy { position: fixed; z-index: 35; left: 0; right: 0; bottom: 0; background: color-mix(in srgb, var(--bg) 92%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid var(--line); transform: translateY(105%); visibility: hidden; transition: transform 0.5s var(--ease), visibility 0s linear 0.5s; }
 .sticky-buy.is-on { transform: none; visibility: visible; transition-delay: 0s; }
 .sticky-in { display: flex; align-items: center; gap: 14px; padding-block: 10px; }
+.sticky-buy { padding-bottom: env(safe-area-inset-bottom); }
 .sticky-thumb { position: relative; flex: none; width: 44px; aspect-ratio: 3 / 4; border-radius: 8px; overflow: hidden; background: var(--card); }
 .sticky-name { font-family: var(--serif); font-size: 1.25rem; line-height: 1.15; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sticky-in .btn { min-height: 44px; padding: 0 22px; flex: none; }
@@ -612,9 +613,9 @@ html.intro .intro-curtain { display: grid; }
 .sheet-foot { padding: 14px 24px calc(18px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); }
 .sheet-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 12px; }
 .sheet-filters { display: grid; gap: 24px; }
-.sheet-filters .fgroup { display: grid; gap: 10px; }
-.sheet-filters .fgroup-label { margin-bottom: 2px; }
-.sheet-filters .fchip { justify-content: flex-start; }
+.sheet-filters .fgroup { display: flex; flex-wrap: wrap; gap: 8px; }
+.sheet-filters .fgroup-label { flex: 0 0 100%; margin-bottom: 2px; }
+.sheet-filters .fchip { justify-content: center; padding: 0 14px; }
 @media (min-width: 900px) { .sheet { display: none; } }
 .search { position: fixed; inset: 0; z-index: 80; visibility: hidden; transition: visibility 0s linear 0.4s; }
 .search.is-open { visibility: visible; transition-delay: 0s; }
@@ -649,16 +650,16 @@ html { scroll-padding-top: var(--top); }
 }
 @media (min-width: 1000px) { :root { --hdr: 76px; --top: 76px; } .topbar { display: contents; } }
 
-/* phone hero: copy sits on the picture, over a cream fade at the bottom */
+/* phone hero: portrait picture fills the block under the pinned header; products in the top two thirds, all copy in the bottom third on a soft cream fade */
 @media (max-width: 899px) {
-  .hero { min-height: max(520px, 78svh); display: grid; align-items: end; overflow: hidden; }
-  .hero-img { position: absolute; inset: 0 0 auto 0; height: 70%; aspect-ratio: auto; }
-  .hero-pic { inset: -6% -8% -6% auto; width: auto; height: 112%; aspect-ratio: 2582 / 1366; } /* the whole scene at height, anchored right, so every product shows */
-  .hero-img img { object-position: 50% 50% !important; }
-  .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 66%; z-index: 0; pointer-events: none; background: linear-gradient(to top, var(--bg) 0%, color-mix(in srgb, var(--bg) 94%, transparent) 40%, transparent 100%); }
-  .hero-copy { position: relative; z-index: 1; padding-block: 0 28px; gap: 12px; }
-  .hero-copy .display { font-size: clamp(2.1rem, 9.2vw, 2.9rem); }
-  .hero-copy .lead { font-size: 0.97rem; color: #4d473f; }
+  .hero { height: clamp(560px, calc(100svh - var(--top)), 760px); display: grid; align-items: end; overflow: hidden; }
+  .hero-img { position: absolute; inset: 0; height: auto; aspect-ratio: auto; }
+  .hero-pic { inset: 0 0 auto 0; height: auto; aspect-ratio: 1792 / 2400; -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); mask-image: linear-gradient(to bottom, #000 80%, transparent 100%); } /* whole portrait picture at full width, so every product shows; its empty cream foot fades into the page colour */
+  .hero-pic img { object-fit: cover; object-position: 50% 0% !important; }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 46%; z-index: 0; pointer-events: none; background: linear-gradient(to top, color-mix(in srgb, var(--bg) 92%, transparent) 0%, color-mix(in srgb, var(--bg) 78%, transparent) 55%, transparent 100%); }
+  .hero-copy { position: relative; z-index: 1; padding-block: 0 24px; gap: 10px; }
+  .hero-copy .display { font-size: clamp(2rem, 8.6vw, 2.7rem); }
+  .hero-copy .lead { font-size: 0.95rem; line-height: 1.5; color: #4d473f; }
 }
 
 /* category tiles: text on the picture */
@@ -744,6 +745,7 @@ html:not(.mo) .acc-panel { transition: none; }
 .rsum { display: grid; gap: 20px; }
 .rsum-score { display: grid; gap: 6px; justify-items: start; }
 .rsum-score b { font-family: var(--serif); font-weight: 400; font-size: 3.4rem; line-height: 1; }
+.rsum-score .rating-num { display: none; } /* the big number above already shows the average */
 .rsum-score small { color: var(--muted); font-size: 0.82rem; }
 .rbars { display: grid; gap: 8px; }
 .rbars li { display: grid; grid-template-columns: 48px 1fr 40px; align-items: center; gap: 12px; font-size: 0.82rem; color: var(--muted); }
@@ -842,8 +844,12 @@ html:not(.mo) .acc-panel { transition: none; }
   .checkout { padding-bottom: 96px; }
 }
 @media (min-width: 960px) { .sum-body, .sum-in { display: contents; } }
+/* Round 6C: phone banners are split cards: crisp photo on top, solid ink panel with the copy below */
 @media (max-width: 799px) {
-  .band-shade { background: linear-gradient(180deg, rgba(20, 17, 14, 0.7) 0%, rgba(20, 17, 14, 0.86) 40%, rgba(20, 17, 14, 0.94) 100%); }
+  .band { display: grid; align-items: stretch; min-height: 0; background: var(--ink); }
+  .band-img { position: relative; z-index: auto; aspect-ratio: 4 / 3; }
+  .band-shade { display: none; }
+  .band-copy { max-width: none; padding: 28px 24px 32px; background: var(--ink); text-shadow: none; }
 }
 
 /* Round 6B: at narrow widths the price number sits above its "sample price" label so the quick-add button always fits inside the card */
