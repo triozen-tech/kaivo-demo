@@ -18,17 +18,18 @@ export default async function CategoryPage({ params }: PageProps<"/c/[slug]">) {
   if (!cat) notFound();
   return (
     <>
-      <section className="cat-hero container">
-        <div className="cat-hero-copy" data-stagger>
+      <section className="cat-banner" style={{ "--sm": cat.shade?.m ?? 0.75, "--sd": cat.shade?.d ?? 0.92, "--inset": cat.inset ?? "0%" } as React.CSSProperties}>
+        <div className="cat-banner-img" data-img-reveal data-morph-target>
+          <Pic name={cat.banner} alt="" sizes="100vw" position={cat.focal} priority />
+        </div>
+        <div className="cat-banner-shade" aria-hidden="true" />
+        <div className="cat-banner-copy container" data-stagger>
           <p className="label">Category</p>
           <h1 className="display">{cat.name}</h1>
           <p className="lead">{cat.tagline}</p>
         </div>
-        <div className="cat-hero-img" data-img-reveal data-morph-target>
-          <Pic name={cat.banner} alt="" sizes="(max-width: 900px) 100vw, 60vw" position={cat.focal} priority />
-        </div>
       </section>
-      <section className="section container" aria-label={`${cat.name} products`}>
+      <section className="section container cat-products" aria-label={`${cat.name} products`}>
         <CategoryGrid products={productsIn(cat.slug)} />
       </section>
     </>

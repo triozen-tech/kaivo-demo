@@ -7,6 +7,7 @@ import { categories } from "@/data/categories";
 import { useCart } from "./CartProvider";
 import { Drawer } from "./Drawer";
 import { BagIcon, HeartIcon, MenuIcon, SearchIcon } from "./Icons";
+import { OfferStrip } from "./OfferStrip";
 import { SearchOverlay } from "./SearchOverlay";
 import { useWish } from "./WishProvider";
 import { isStatic } from "@/lib/motion";
@@ -45,6 +46,7 @@ export function Header() {
 
   return (
     <>
+      <div className="topbar">
       <header className={`header${scrolled ? " is-scrolled" : ""}${hidden ? " is-hidden" : ""}`}>
         <div className="header-in container">
           <button type="button" className="icon-btn menu-btn" onClick={() => setMenuOpen(true)} aria-label="Open menu"><MenuIcon /></button>
@@ -69,6 +71,8 @@ export function Header() {
         </div>
       </header>
       <div className="header-space" aria-hidden="true" />
+      <OfferStrip />
+      </div>
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
       <Drawer open={menuOpen} onClose={() => setMenuOpen(false)} side="left" title="Menu">
         <nav className="menu-links" aria-label="Menu">

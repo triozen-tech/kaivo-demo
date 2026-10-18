@@ -96,7 +96,7 @@ export function Motion() {
       });
 
       // —— headings: words rise out of a mask, one after another ——
-      const heads = gsap.utils.toArray<HTMLElement>(".section-head h2.h2, .cat-hero h1");
+      const heads = gsap.utils.toArray<HTMLElement>(".section-head h2.h2, .cat-banner h1");
       if (heads.length) {
         gsap.set(heads, { opacity: 0 });
         Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1500))]).then(() => {

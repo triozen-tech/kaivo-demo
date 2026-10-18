@@ -45,12 +45,14 @@ export default function Home() {
         </div>
         <div className="cat-grid" data-stagger>
           {categories.map((c) => (
-            <MorphLink key={c.slug} href={`/c/${c.slug}`} className="cat-tile" morph=".cat-img" data-cursor="View">
+            <MorphLink key={c.slug} href={`/c/${c.slug}`} className="cat-tile" morph=".cat-img" data-cursor="View" style={{ "--sm": c.shade?.m ?? 0.75, "--z": c.zoom?.s ?? 1, "--zo": c.zoom?.o ?? "50% 50%" } as React.CSSProperties}>
               <span className="cat-img"><Pic name={c.banner} alt="" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 40vw" position={c.tile} /></span>
+              <span className="cat-shade" aria-hidden="true" />
               <span className="cat-meta">
                 <span className="cat-name">{c.name}</span>
                 <span className="cat-tag">{c.tagline}</span>
               </span>
+              <span className="cat-chip" aria-hidden="true"><ArrowIcon /></span>
             </MorphLink>
           ))}
         </div>
