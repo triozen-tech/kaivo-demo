@@ -7,6 +7,8 @@ export type Order = {
   delivery: string;
   lines: OrderLine[];
   subtotal: number;
+  code?: string;
+  discount?: number;
   shipping: number;
   total: number;
 };

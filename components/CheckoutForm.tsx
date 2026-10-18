@@ -7,6 +7,9 @@ import { getProduct } from "@/data/products";
 import { useCart } from "./CartProvider";
 import { Pic } from "./ProductImage";
 import { inr } from "@/lib/format";
+import { Voucher } from "./Voucher";
+import { Money } from "./Money";
+import { FREE_EXPRESS_AT } from "@/lib/promo";
 import { deliveryOptions, orderNumber, ORDER_KEY, type Order } from "@/lib/order";
 
 const states = [
@@ -35,15 +38,18 @@ function validate(v: Values): Errors {
 }
 
 export function CheckoutForm() {
-  const { lines, subtotal, ready, clear } = useCart();
+  const { lines, subtotal, discount, code, net, ready, clear, removeCode } = useCart();
   const router = useRouter();
   const [v, setV] = useState<Values>(empty);
   const [errors, setErrors] = useState<Errors>({});
   const [busy, setBusy] = useState(false);
   const form = useRef<HTMLFormElement>(null);
 
-  const delivery = deliveryOptions.find((d) => d.id === v.delivery) ?? deliveryOptions[0];
-  const total = subtotal + delivery.price;
+  const picked = deliveryOptions.find((d) => d.id === v.delivery) ?? deliveryOptions[0];
+  const freeExpress = subtotal >= FREE_EXPRESS_AT;
+  const shipFor = (d: (typeof deliveryOptions)[number]) => (d.id === "express" && freeExpress ? 0 : d.price);
+  const delivery = { ...picked, price: shipFor(picked) };
+  const total = net + delivery.price;
 
   const set = (k: keyof Values) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setV((cur) => ({ ...cur, [k]: e.target.value }));
@@ -76,10 +82,11 @@ export function CheckoutForm() {
       city: v.city.trim(),
       delivery: delivery.label,
       lines: lines.map((l) => { const p = getProduct(l.slug)!; return { name: p.name, qty: l.qty, price: p.price }; }),
-      subtotal, shipping: delivery.price, total,
+      subtotal, discount: discount || undefined, code: discount ? code ?? undefined : undefined, shipping: delivery.price, total,
     };
     try { sessionStorage.setItem(ORDER_KEY, JSON.stringify(order)); } catch { /* summary page falls back */ }
     clear();
+    removeCode();
     router.push("/order/success");
   };
 
@@ -126,8 +133,8 @@ export function CheckoutForm() {
             {deliveryOptions.map((d) => (
               <label key={d.id} className={`radio${v.delivery === d.id ? " is-on" : ""}`}>
                 <input type="radio" name="delivery" value={d.id} checked={v.delivery === d.id} onChange={set("delivery")} />
-                <span className="radio-text"><strong>{d.label}</strong><span>{d.note}</span></span>
-                <span className="radio-price">{d.price === 0 ? "Free" : inr(d.price)}</span>
+                <span className="radio-text"><strong>{d.label}</strong><span>{d.id === "express" && freeExpress ? "Free, you passed " + inr(FREE_EXPRESS_AT) : d.note}</span></span>
+                <span className="radio-price">{shipFor(d) === 0 ? "Free" : inr(d.price)}</span>
               </label>
             ))}
           </div>
@@ -148,9 +155,11 @@ export function CheckoutForm() {
             );
           })}
         </ul>
-        <div className="sum-row"><span>Subtotal</span><span>{inr(subtotal)}</span></div>
+        <Voucher />
+        <div className="sum-row"><span>Subtotal</span><Money value={subtotal} /></div>
+        {discount > 0 && <div className="sum-row sum-disc"><span>Discount ({code})</span><span>−<Money value={discount} /></span></div>}
         <div className="sum-row"><span>Shipping</span><span>{delivery.price === 0 ? "Free" : inr(delivery.price)}</span></div>
-        <div className="sum-row sum-total"><span>Total</span><strong>{inr(total)}</strong></div>
+        <div className="sum-row sum-total"><span>Total</span><strong><Money value={total} /></strong></div>
         <p className="fine">All prices are sample prices. Demo checkout: no payment is taken.</p>
         <button type="submit" className="btn btn-solid btn-block" disabled={busy}>{busy ? "Placing order…" : "Place demo order"}</button>
       </aside>

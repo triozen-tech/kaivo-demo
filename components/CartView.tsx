@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { useCart } from "./CartProvider";
 import { CartLines } from "./CartLines";
-import { inr } from "@/lib/format";
+import { ShipBar } from "./ShipBar";
+import { Voucher } from "./Voucher";
+import { CompleteSet } from "./CompleteSet";
+import { Money } from "./Money";
 
 export function CartView() {
-  const { lines, subtotal, ready, count } = useCart();
+  const { lines, subtotal, discount, code, net, ready, count } = useCart();
   if (!ready) return <div className="skeleton" aria-hidden="true" />;
   if (lines.length === 0)
     return (
@@ -17,11 +20,14 @@ export function CartView() {
     );
   return (
     <div className="cart-layout">
-      <CartLines />
+      <div className="cart-main"><ShipBar /><CartLines /><CompleteSet /></div>
       <aside className="summary" aria-label="Order summary">
         <h2 className="h4">Summary</h2>
-        <div className="sum-row"><span>Items ({count})</span><strong>{inr(subtotal)}</strong></div>
+        <Voucher />
+        <div className="sum-row"><span>Items ({count})</span><Money value={subtotal} /></div>
+        {discount > 0 && <div className="sum-row sum-disc"><span>Discount ({code})</span><span>−<Money value={discount} /></span></div>}
         <div className="sum-row"><span>Shipping</span><span>Calculated at checkout</span></div>
+        <div className="sum-row sum-total"><span>Total</span><strong><Money value={net} /></strong></div>
         <p className="fine">All prices are sample prices.</p>
         <Link href="/checkout" className="btn btn-solid btn-block">Go to checkout</Link>
         <Link href="/" className="textlink">Continue shopping</Link>

@@ -1,0 +1,30 @@
+import { chromium } from "playwright";
+const b = await chromium.launch({ channel: "chrome" });
+const errs = [];
+for (const w of [390, 768, 1440]) {
+  const p = await b.newPage({ viewport: { width: w, height: 900 } });
+  p.on("console", (m) => m.type() === "error" && errs.push(w + " " + m.text()));
+  p.on("pageerror", (e) => errs.push(w + " " + e.message));
+  await p.goto("http://localhost:3018/p/tumbler-halo?static=1");
+  await p.getByRole("button", { name: /add to cart/i }).first().click();
+  await p.waitForTimeout(600);
+  const txt = async () => (await p.locator(".drawer-body, .shipbar").first().innerText()).replace(/\n/g, " | ").slice(0, 120);
+  console.log(w, "bar:", await p.locator(".shipbar-text").first().innerText());
+  await p.fill(".voucher input", "nope"); await p.click(".voucher .btn");
+  console.log(w, "invalid:", await p.locator(".voucher .err").innerText());
+  await p.fill(".voucher input", "kaivo10"); await p.click(".voucher .btn");
+  await p.waitForTimeout(900);
+  console.log(w, "chip:", await p.locator(".chip").innerText(), "| disc:", await p.locator(".sum-disc").innerText());
+  console.log(w, "cset:", await p.locator(".cset-name").allInnerTexts());
+  await p.locator(".cset-row button").first().click(); await p.waitForTimeout(900);
+  console.log(w, "bar after add:", await p.locator(".shipbar-text").first().innerText());
+  await p.goto("http://localhost:3018/checkout?static=1"); await p.waitForTimeout(800);
+  console.log(w, "checkout summary:", (await p.locator(".summary").innerText()).replace(/\n/g," | ").slice(0,200));
+  await p.click("button[type=submit]"); await p.waitForTimeout(400);
+  console.log(w, "errors shown:", await p.locator(".err").count());
+  const ov = await p.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+  console.log(w, "overflow:", ov);
+  await p.close();
+}
+console.log("console errors:", errs);
+await b.close();

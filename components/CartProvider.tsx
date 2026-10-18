@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { getProduct } from "@/data/products";
+import { discountFor, isKnownCode, normaliseCode, codeNote as noteFor } from "@/lib/promo";
 
 export type CartLine = { slug: string; qty: number };
 
@@ -10,6 +11,12 @@ type CartCtx = {
   ready: boolean;
   count: number;
   subtotal: number;
+  code: string | null;
+  discount: number;
+  codeNote: string | null;
+  net: number;
+  applyCode: (raw: string) => { ok: boolean; message?: string };
+  removeCode: () => void;
   drawerOpen: boolean;
   menuOpen: boolean;
   add: (slug: string, qty?: number, openDrawer?: boolean) => void;
@@ -21,6 +28,7 @@ type CartCtx = {
 };
 
 const KEY = "kaivo-cart";
+const CODE_KEY = "kaivo-code";
 const MAX_QTY = 10;
 const Ctx = createContext<CartCtx | null>(null);
 
@@ -48,6 +56,7 @@ function write(lines: CartLine[]) {
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [lines, setLines] = useState<CartLine[]>([]);
+  const [code, setCode] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,6 +64,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setLines(read());
+    try { const c = localStorage.getItem(CODE_KEY); if (c && isKnownCode(c)) setCode(c); } catch { /* no saved code */ }
     loaded.current = true;
     setReady(true);
   }, []);
@@ -62,6 +72,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (loaded.current) write(lines);
   }, [lines]);
+
+  useEffect(() => {
+    if (!loaded.current) return;
+    try { if (code) localStorage.setItem(CODE_KEY, code); else localStorage.removeItem(CODE_KEY); } catch { /* storage blocked */ }
+  }, [code]);
 
   const add = useCallback((slug: string, qty = 1, openDrawer = true) => {
     setLines((cur) => {
@@ -80,12 +95,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const remove = useCallback((slug: string) => setLines((cur) => cur.filter((l) => l.slug !== slug)), []);
   const clear = useCallback(() => setLines([]), []);
+  const removeCode = useCallback(() => setCode(null), []);
 
   const value = useMemo<CartCtx>(() => {
     const count = lines.reduce((n, l) => n + l.qty, 0);
     const subtotal = lines.reduce((n, l) => n + (getProduct(l.slug)?.price ?? 0) * l.qty, 0);
-    return { lines, ready, count, subtotal, drawerOpen, menuOpen, add, setQty, remove, clear, setDrawerOpen, setMenuOpen };
-  }, [lines, ready, drawerOpen, menuOpen, add, setQty, remove, clear]);
+    const discount = discountFor(code, subtotal);
+    const applyCode = (raw: string) => {
+      const c = normaliseCode(raw);
+      if (!isKnownCode(c)) return { ok: false, message: "That code isn't valid" };
+      const note = noteFor(c, subtotal);
+      if (note) return { ok: false, message: `${c} ${note}` };
+      setCode(c);
+      return { ok: true };
+    };
+    return { lines, ready, count, subtotal, code, discount, codeNote: noteFor(code, subtotal), net: subtotal - discount, applyCode, removeCode, drawerOpen, menuOpen, add, setQty, remove, clear, setDrawerOpen, setMenuOpen };
+  }, [lines, ready, code, drawerOpen, menuOpen, add, setQty, remove, clear, removeCode]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
