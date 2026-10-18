@@ -12,6 +12,9 @@ import { HeartButton } from "@/components/HeartButton";
 import { Rating } from "@/components/Rating";
 import { SampleNote } from "@/components/SampleNote";
 import { StickyBuy } from "@/components/StickyBuy";
+import { Accordion } from "@/components/Accordion";
+import { TrustBox } from "@/components/Trust";
+import { ReviewsPanel } from "@/components/ReviewsPanel";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => products.map((p) => ({ slug: p.slug }));
@@ -50,22 +53,19 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
           <p className="rating-line"><Rating value={p.rating} count={p.reviewCount} /><span className="sample-note sample-note-inline">Sample ratings</span></p>
           <p className="lead">{p.summary}</p>
           <ProductBuy slug={p.slug} />
-          <div className="pdp-block">
-            <h2 className="h4">Features</h2>
-            <ul className="ticks">{p.features.map((f) => <li key={f}>{f}</li>)}</ul>
-          </div>
-          <div className="pdp-block">
-            <h2 className="h4">Details</h2>
-            <dl className="details">
-              {p.details.map((d) => (<div key={d.label}><dt>{d.label}</dt><dd>{d.value}</dd></div>))}
-            </dl>
-          </div>
+          <TrustBox />
+          <Accordion items={[
+            { id: "desc", title: "Description", open: true, children: (<><p>{p.summary}</p><ul className="ticks">{p.features.map((f) => <li key={f}>{f}</li>)}</ul></>) },
+            { id: "ship", title: "Shipping & returns", children: (<ul className="plain"><li>Free sample shipping on every demo order, usually shown as 3 to 5 working days.</li><li>Easy 30-day returns on unused items in their original packaging.</li><li>This is a concept store: nothing is charged and nothing ships.</li></ul>) },
+            { id: "spec", title: "Specifications", children: (<dl className="details">{p.details.map((d) => (<div key={d.label}><dt>{d.label}</dt><dd>{d.value}</dd></div>))}</dl>) },
+            { id: "rev", title: "Customer reviews", note: "Sample", children: <ReviewsPanel product={p} /> },
+          ]} />
         </div>
       </section>
       <StickyBuy slug={p.slug} name={p.name} price={p.price} image={p.image} />
 
       <section className="section container" aria-labelledby="also">
-        <div className="section-head" data-reveal><h2 id="also" className="h2">You may also like</h2></div>
+        <div className="section-head" data-reveal><h2 id="also" className="h2">More from this range</h2></div>
         <div className="grid" data-stagger>{related.map((r) => <ProductCard key={r.slug} product={r} />)}</div>
         <SampleNote />
       </section>
