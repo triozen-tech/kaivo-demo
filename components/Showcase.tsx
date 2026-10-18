@@ -40,10 +40,14 @@ export function Showcase() {
       const fill = el.querySelector<HTMLElement>(".sc-line i")!;
       const dist = () => track.scrollWidth - window.innerWidth;
       let shown = 0;
+      // CSS sticky instead of a GSAP pin: the section scrolls natively for exactly dist() extra pixels, so no fixed/spacer swap (no layout shift)
+      const size = () => { el.style.height = `calc(100vh + ${dist()}px)`; };
+      size();
+      ScrollTrigger.addEventListener("refreshInit", size);
       const slide = gsap.to(track, {
         x: () => -dist(), ease: "none",
         scrollTrigger: {
-          trigger: el, start: "top top", end: () => "+=" + dist(), pin: true, scrub: 0.8, anticipatePin: 1, invalidateOnRefresh: true,
+          trigger: el, start: "top top", end: () => "+=" + dist(), scrub: 0.8, invalidateOnRefresh: true,
           onUpdate: (st) => {
             gsap.set(fill, { scaleX: st.progress });
             const n = Math.min(panels.length - 1, Math.round(st.progress * (panels.length - 1)));
@@ -57,12 +61,14 @@ export function Showcase() {
         });
         gsap.fromTo(p.querySelector(".sc-name"), { x: 90 }, { x: -90, ease: "none", scrollTrigger: { trigger: p, containerAnimation: slide, start: "left right", end: "right left", scrub: true } });
       });
+      return () => { ScrollTrigger.removeEventListener("refreshInit", size); el.style.height = ""; };
     });
     return () => mm.revert();
   }, []);
 
   return (
     <section ref={root} className="showcase" data-tint="sage" aria-labelledby="sc-h">
+      <div className="sc-stick">
       <h2 id="sc-h" className="sc-title">Shop by category</h2>
       <p className="sc-count" aria-hidden="true"><b>01</b> / {two(categories.length)}</p>
       <div className="sc-track">
@@ -78,7 +84,7 @@ export function Showcase() {
               </div>
               <div className="sc-art">
                 <MorphLink href={`/c/${c.slug}`} className="sc-img" morph=".sc-img" aria-label={`Shop ${c.name}`} data-cursor="View">
-                  <Pic name={c.banner} alt="" sizes="60vw" position={c.focal} priority={i === 0} />
+                  <Pic name={c.banner} alt="" sizes="60vw" position={c.focal} />
                 </MorphLink>
                 {cuts.map((p, k) => (
                   <span key={p.slug} className="sc-float" data-drift={slots[k].drift} style={{ ...slots[k], height: slots[k].h }}>
@@ -91,6 +97,7 @@ export function Showcase() {
         })}
       </div>
       <div className="sc-line" aria-hidden="true"><i /></div>
+      </div>
     </section>
   );
 }

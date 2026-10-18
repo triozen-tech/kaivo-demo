@@ -12,7 +12,7 @@ export default function ShopPage() {
       <div className="container page shop-page">
         <p className="label">The full range</p>
         <h1 className="h1">Shop all</h1>
-        <Suspense><ShopBrowser products={products} paged /></Suspense>
+        <Suspense fallback={<div className="shop-skel" aria-hidden="true" />}><ShopBrowser products={products} paged /></Suspense>
       </div>
       <ClosingBanner href="/c/food-jars" cta="Shop food jars" />
     </>

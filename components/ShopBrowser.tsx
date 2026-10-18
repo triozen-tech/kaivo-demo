@@ -101,7 +101,7 @@ export function ShopBrowser({ products, paged = false }: { products: Product[]; 
       {list.length === 0 ? (
         <div className="empty"><p className="serif" style={{ fontSize: "1.8rem" }}>Nothing matches those filters.</p><button type="button" className="btn btn-outline" onClick={clear}>Clear all</button></div>
       ) : (
-        <div className="grid" data-stagger key={`${active}-${sort}-${q}`}>{visible.map((p) => <ProductCard key={p.slug} product={p} />)}</div>
+        <div className="grid" data-stagger key={`${active}-${sort}-${q}`}>{visible.map((p, i) => <ProductCard key={p.slug} product={p} priority={i < 4} />)}</div>
       )}
       {paged && list.length > shown && (
         <div className="loadmore"><button type="button" className="btn btn-outline" onClick={() => setShown((n) => n + PAGE)}>Load more <small>({list.length - shown} left)</small></button></div>

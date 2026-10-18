@@ -468,7 +468,8 @@ html[data-morph] .page-in { animation: none !important; }
 /* pinned sideways showcase: mouse desktops only; everyone else (and ?static=1) gets the stacked tiles */
 .showcase { display: none; }
 @media (min-width: 1000px) and (hover: hover) and (pointer: fine) {
-  html.mo .showcase { display: block; position: relative; height: 100vh; overflow: hidden; }
+  html.mo .showcase { display: block; position: relative; height: 100vh; }
+  html.mo .sc-stick { position: sticky; top: 0; height: 100vh; overflow: hidden; }
   html.mo .cats-stack { display: none; }
 }
 .sc-title { position: absolute; z-index: 3; left: var(--gutter); top: 104px; font: 600 0.78rem/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
@@ -850,3 +851,7 @@ html:not(.mo) .acc-panel { transition: none; }
   .pcard-foot .price { flex-direction: column; align-items: flex-start; gap: 3px; }
   .pcard-foot .sample-tag { letter-spacing: 0.03em; padding: 0 7px; }
 }
+
+/* Round 6B: holds the product grid's place until the shop list hydrates, so the banner below never jumps (CLS) */
+.shop-skel { min-height: 2600px; }
+@media (min-width: 700px) { .shop-skel { min-height: 1700px; } }
