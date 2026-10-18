@@ -62,7 +62,7 @@ Footer on every page: "Concept website by Triozen Tech".
 - **Social grid:** the "@kaivo.home" tiles and like counts are sample content, not a real account.
 - **Newsletter:** only checks the email format. Nothing is saved or sent.
 - **Checkout:** no payment is taken and no payment details are asked for. Nothing is sent to a server; the order number and confirmation exist only in the browser.
-- **Photography:** AI-generated concept images of products and rooms, with no people in them.
+- **Photography:** concept images of products and rooms, with no people in them.
 - **Contact details, delivery and returns text:** placeholder wording for the concept.
 
 ## Not claimed
