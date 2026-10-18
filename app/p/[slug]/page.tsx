@@ -24,7 +24,7 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
   const related = relatedProducts(p.slug, 3);
   const life = lifestyle[products.findIndex((x) => x.slug === p.slug) % lifestyle.length];
   const gallery = [
-    { name: p.image, alt: p.name, label: "Product", position: undefined },
+    { name: p.image, alt: p.name, label: "Product", position: undefined, cut: p.cut },
     { name: cat.banner, alt: `${cat.name} in the Kaivo range`, label: "In the range", position: cat.focal, zoom: 1.35 },
     { name: life.img, alt: life.alt, label: "At home", position: life.pos, zoom: 1.2 },
   ];

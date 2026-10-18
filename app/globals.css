@@ -474,3 +474,21 @@ html:not(.mo) .offer-half li:last-child::after { display: none; }
 .ok-dot { position: absolute; left: 50%; top: 50%; margin: -6px 0 0 -6px; border-radius: 50%; pointer-events: none; }
 .ok-clay { background: var(--clay); } .ok-sage { background: var(--sage); }
 html:not(.mo) .ok-dot { display: none; }
+
+/* cut-out cards and product media: object floats over the tinted background, soft shadow ellipse grows underneath */
+.cut { position: absolute; inset: 0; display: block; }
+.cut-lift { position: absolute; inset: 0; display: block; transition: transform 0.6s var(--ease); }
+.cut-obj { position: absolute; inset: 0; display: block; transform-style: preserve-3d; will-change: transform; }
+.cut-obj { perspective: 900px; }
+.cut-shadow { position: absolute; height: 5%; transform: translate(-50%, -40%) scale(0.8); border-radius: 50%; background: radial-gradient(closest-side, rgba(28, 26, 23, 0.34), rgba(28, 26, 23, 0)); opacity: 0.55; transition: transform 0.6s var(--ease), opacity 0.6s var(--ease); }
+.pcard-img.cut-host img { transform: none !important; }
+@media (hover: hover) and (pointer: fine) {
+  .cut-host:hover .cut-lift { transform: translateY(-10px); }
+  .cut-host:hover .cut-shadow { transform: translate(-50%, -40%) scale(1.25); opacity: 0.9; }
+  .pcard:hover .pcard-img.cut-host img { transform: none; }
+}
+.pdp-media.cut-host .cut-shadow { height: 4%; }
+@media (hover: hover) {
+  .pcard:has(.cut-host):hover .pcard-in { transform: none; }
+  .pcard:has(.cut-host):hover .pcard-in::before { opacity: 0; }
+}

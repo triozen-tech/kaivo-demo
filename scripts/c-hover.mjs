@@ -1,0 +1,17 @@
+import { chromium } from "playwright";
+const b = await chromium.launch({ channel: "chrome" });
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+const errs = []; p.on("console", (m) => m.type() === "error" && errs.push(m.text())); p.on("pageerror", (e) => errs.push(e.message));
+await p.goto("http://localhost:3018/c/tumblers"); await p.waitForTimeout(2500);
+const card = p.locator(".pcard").nth(0); await card.scrollIntoViewIfNeeded();
+const bb = await card.locator(".pcard-img").boundingBox();
+await p.mouse.move(bb.x + bb.width * 0.5, bb.y + bb.height * 0.5); await p.waitForTimeout(500);
+await p.mouse.move(bb.x + bb.width * 0.85, bb.y + bb.height * 0.3, { steps: 8 }); await p.waitForTimeout(900);
+await p.screenshot({ path: "shots/r4/card-hover.png", clip: { x: bb.x - 40, y: bb.y - 20, width: bb.width + 80, height: bb.height + 140 } });
+console.log("transform:", await card.locator(".cut-obj").evaluate((e) => getComputedStyle(e).transform), await card.locator(".cut-lift").evaluate((e) => getComputedStyle(e).transform));
+await p.goto("http://localhost:3018/p/tumbler-halo"); await p.waitForTimeout(2500);
+const m = await p.locator(".pdp-media").boundingBox();
+await p.mouse.move(m.x + m.width * 0.8, m.y + m.height * 0.3, { steps: 8 }); await p.waitForTimeout(900);
+await p.screenshot({ path: "shots/r4/pdp-cut.png" });
+console.log("errs", errs);
+await b.close();

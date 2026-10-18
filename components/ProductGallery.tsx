@@ -2,8 +2,9 @@
 
 import { useRef, useState } from "react";
 import { Pic } from "./ProductImage";
+import { CutPic } from "./CutPic";
 
-export type GalleryItem = { name: string; alt: string; position?: string; zoom?: number; label: string };
+export type GalleryItem = { name: string; alt: string; position?: string; zoom?: number; label: string; cut?: boolean };
 
 /** Three views of one product: cross-fading frame, thumbnails, swipe on touch. `.pdp-media` stays the element the fly-to-cart reads. */
 export function ProductGallery({ items }: { items: GalleryItem[] }) {
@@ -14,7 +15,8 @@ export function ProductGallery({ items }: { items: GalleryItem[] }) {
   return (
     <div className="pdp-gallery">
       <div
-        className="pdp-media"
+        className={`pdp-media${items[0].cut ? " cut-host" : ""}`}
+        data-tilt-host={items[0].cut ? "" : undefined}
         data-img-reveal
         onTouchStart={(e) => { x0.current = e.touches[0].clientX; }}
         onTouchEnd={(e) => {
@@ -27,7 +29,9 @@ export function ProductGallery({ items }: { items: GalleryItem[] }) {
         {items.map((it, n) => (
           <div key={it.name} className={`pdp-slide${n === i ? " is-active" : ""}`} aria-hidden={n === i ? undefined : true}>
             <div className="pdp-zoom" style={it.zoom ? { transform: `scale(${it.zoom})`, transformOrigin: it.position } : undefined}>
-              <Pic name={it.name} alt={it.alt} sizes="(max-width: 900px) 100vw, 50vw" position={it.position} priority={n === 0} />
+              {it.cut
+                ? <CutPic name={it.name} alt={it.alt} sizes="(max-width: 900px) 100vw, 50vw" priority tilt={6} shift={14} />
+                : <Pic name={it.name} alt={it.alt} sizes="(max-width: 900px) 100vw, 50vw" position={it.position} priority={n === 0} />}
             </div>
           </div>
         ))}

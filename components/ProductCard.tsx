@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Product } from "@/data/products";
 import { categories } from "@/data/categories";
 import { Pic } from "./ProductImage";
+import { CutPic } from "./CutPic";
 import { Price } from "./Price";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -9,9 +10,11 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/p/${product.slug}`} className="pcard">
       <span className="pcard-in">
-      <span className="pcard-img">
+      <span className={`pcard-img${product.cut ? " cut-host" : ""}`} data-tilt-host={product.cut ? "" : undefined}>
         {product.tag && <span className={`tagpill tag-${product.tag === "Bestseller" ? "best" : product.tag === "New" ? "new" : "offer"}`}>{product.tag}</span>}
-        <Pic name={product.image} alt={product.name} sizes="(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 380px" />
+        {product.cut
+          ? <CutPic name={product.image} alt={product.name} sizes="(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 380px" />
+          : <Pic name={product.image} alt={product.name} sizes="(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 380px" />}
       </span>
       <span className="pcard-meta">
         <span className="pcard-cat">{cat?.name}</span>
