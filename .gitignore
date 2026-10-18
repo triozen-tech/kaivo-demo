@@ -11,3 +11,4 @@ shots/r6c/raw
 .vercel/
 *.pem
 *.key
+/out/
