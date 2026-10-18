@@ -11,7 +11,7 @@ export function Footer() {
         </div>
         <div>
           <h3 className="label">Shop</h3>
-          <ul>{categories.map((c) => <li key={c.slug}><Link href={`/c/${c.slug}`}>{c.name}</Link></li>)}</ul>
+          <ul><li><Link href="/shop">Shop all</Link></li>{categories.map((c) => <li key={c.slug}><Link href={`/c/${c.slug}`}>{c.name}</Link></li>)}</ul>
         </div>
         <div>
           <h3 className="label">Your order</h3>

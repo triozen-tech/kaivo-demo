@@ -8,6 +8,7 @@ import { lifestyle } from "@/data/lifestyle";
 import { Marquee } from "@/components/Marquee";
 import { MorphLink } from "@/components/MorphLink";
 import { Showcase } from "@/components/Showcase";
+import { UspRow, CategoryIcons } from "@/components/HomeBands";
 import { SampleNote } from "@/components/SampleNote";
 
 
@@ -32,6 +33,9 @@ export default function Home() {
           <Link href="/c/tumblers" className="btn btn-solid" data-hero="cta">Shop the collection <ArrowIcon /></Link>
         </div>
       </section>
+
+      <UspRow />
+      <CategoryIcons />
 
       <Showcase />
 
