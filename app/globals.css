@@ -79,10 +79,11 @@ button { cursor: pointer; }
 .icon-btn:hover { background: var(--card); }
 
 /* header */
-.header { position: sticky; top: 0; z-index: 40; background: var(--bg); border-bottom: 1px solid var(--line); transition: transform 0.5s var(--ease), background-color 0.35s, border-color 0.35s; }
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 40; background: var(--bg); border-bottom: 1px solid var(--line); transition: transform 0.5s var(--ease), background-color 0.35s, border-color 0.35s; }
 .mo .header:not(.is-scrolled) { background: transparent; border-bottom-color: transparent; }
 .header.is-scrolled { background: rgba(244, 239, 231, 0.86); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); }
 .header.is-hidden { transform: translateY(-100%); }
+.header-space { height: 68px; }
 .header-in { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 68px; }
 .logo { font-size: 2rem; letter-spacing: -0.02em; line-height: 1; justify-self: center; }
 .nav { display: none; }
@@ -91,6 +92,7 @@ button { cursor: pointer; }
 .mo .badge { animation: bump 0.6s var(--ease); }
 .badge { position: absolute; top: 3px; right: 1px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 99px; background: var(--clay); color: #fff; font-size: 0.7rem; font-weight: 700; line-height: 18px; text-align: center; }
 @media (min-width: 1000px) {
+  .header-space { height: 76px; }
   .header-in { grid-template-columns: auto 1fr auto; gap: 40px; height: 76px; }
   .logo { justify-self: start; order: 0; }
   .menu-btn { display: none; }
@@ -128,10 +130,10 @@ button { cursor: pointer; }
 .hero-copy { padding-block: 36px 20px; display: grid; gap: 18px; justify-items: start; }
 @media (min-width: 900px) {
   .hero { min-height: min(86vh, 56vw); display: grid; align-items: center; }
-  .hero-img { position: absolute; inset: 0; aspect-ratio: auto; }
-  .hero-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(244, 239, 231, 0.92) 0%, rgba(244, 239, 231, 0.7) 30%, rgba(244, 239, 231, 0) 58%); }
+  .hero-img { position: absolute; inset: 0 0 0 26%; aspect-ratio: auto; } /* the picture starts right of the text column, so copy and products never touch */
+  .hero-img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #f4efe7 0%, rgba(244, 239, 231, 0.85) 12%, rgba(244, 239, 231, 0) 36%); }
   .hero-copy { position: relative; z-index: 1; padding-block: 72px; }
-  .hero-copy > * { max-width: 560px; }
+  .hero-copy > * { max-width: 560px; } .hero-copy .lead { max-width: 440px; }
 }
 
 /* sections */
@@ -357,15 +359,15 @@ legend { padding: 0; }
 
 
 /* ───────── motion (everything below only runs when `html.mo` is set, i.e. never with ?static=1) ───────── */
-.fly { position: fixed; left: 0; top: 0; width: 150px; height: 200px; z-index: 90; pointer-events: none; border-radius: 18px; background-size: cover; background-position: center; box-shadow: 0 14px 30px -10px rgba(28, 26, 23, 0.45); will-change: transform, opacity; }
+.fly { position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none; background-size: cover; background-position: center; box-shadow: 0 22px 44px -14px rgba(28, 26, 23, 0.5); will-change: transform, opacity; }
 
 /* pieces wait for the first animation frame (Motion clears `mo-hold`, or a 3 s failsafe does) */
 .mo-hold [data-reveal], .mo-hold [data-stagger] > *, .mo-hold [data-img-reveal], .mo-hold [data-hero] { opacity: 0; }
 
 .hero-line { padding-bottom: 0.08em; }
 
-.mo .page-in { animation: page-in 0.36s var(--ease); }
-@keyframes page-in { from { opacity: 0; transform: translateY(12px); } }
+.mo .page-in { animation: page-in 0.36s var(--ease); } /* opacity only: no transform is ever left on an ancestor of fixed layers */
+@keyframes page-in { from { opacity: 0; } }
 @keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.55); } 100% { transform: scale(1); } }
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
 
@@ -405,3 +407,24 @@ input, select, textarea, [id] { scroll-margin-top: 96px; }
 /* short pages (404, empty cart): the footer sits at the bottom of the viewport */
 body { min-height: 100dvh; display: flex; flex-direction: column; }
 main { flex: 1 0 auto; }
+
+/* offer strip (scrolls away with the page; the header is fixed) */
+.offer { background: var(--ink); color: var(--bg); overflow: hidden; font-size: 0.82rem; letter-spacing: 0.03em; line-height: 1; }
+.offer-track { display: flex; width: max-content; }
+.offer-half, .offer-dup { display: flex; flex: none; }
+.offer-half li { display: flex; align-items: center; white-space: nowrap; padding-block: 12px; }
+.offer-half li::after { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--clay); margin-inline: 28px; }
+.mo .offer-track { animation: marquee 38s linear infinite; will-change: transform; }
+html:not(.mo) .offer-dup { display: none; }
+html:not(.mo) .offer-track { width: auto; justify-content: center; }
+html:not(.mo) .offer-half { flex-wrap: wrap; justify-content: center; }
+html:not(.mo) .offer-half li:last-child::after { display: none; }
+
+/* tag pills */
+.tagpill { position: absolute; z-index: 2; top: 12px; left: 12px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; padding: 7px 11px; border-radius: 99px; }
+.tag-new { background: #dfe6d9; color: #3d4a37; }
+.tag-best { background: var(--clay); color: #fff; }
+.tag-offer { background: var(--ink); color: var(--bg); }
+.tagpill.tag-inline { position: static; display: inline-block; margin-left: 12px; vertical-align: 2px; }
+.hero-pill { display: inline-flex; align-items: center; gap: 9px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; color: var(--clay-deep); background: rgba(255, 255, 255, 0.6); border: 1px solid var(--line); border-radius: 99px; padding: 8px 16px 8px 13px; line-height: 1; }
+.hero-pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--clay); }

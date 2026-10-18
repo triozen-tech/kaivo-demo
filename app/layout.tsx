@@ -7,6 +7,7 @@ import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
+import { OfferStrip } from "@/components/OfferStrip";
 import { Motion } from "@/components/Motion";
 
 /** Motion is always on; only ?static=1 turns it off. `mo` = motion on, `mo-hold` = pieces wait for the first animation frame (cleared by Motion, or after 3 s if scripts fail). */
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CartProvider>
           <a href="#main" className="skip">Skip to content</a>
           <Header />
+          <OfferStrip />
           <main id="main">{children}</main>
           <Footer />
           <CartDrawer />

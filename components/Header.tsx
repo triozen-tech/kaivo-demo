@@ -55,6 +55,7 @@ export function Header() {
           </button>
         </div>
       </header>
+      <div className="header-space" aria-hidden="true" />
       <Drawer open={menuOpen} onClose={() => setMenuOpen(false)} side="left" title="Menu">
         <nav className="menu-links" aria-label="Menu">
           {categories.map((c) => (

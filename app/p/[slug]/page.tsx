@@ -40,7 +40,7 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
       <section className="container pdp">
         <ProductGallery items={gallery} />
         <div className="pdp-info" data-stagger>
-          <p className="label">{cat.name}</p>
+          <p className="label">{cat.name}{p.tag && <span className={`tagpill tag-inline tag-${p.tag === "Bestseller" ? "best" : p.tag === "New" ? "new" : "offer"}`}>{p.tag}</span>}</p>
           <h1 className="h1">{p.name}</h1>
           <Price value={p.price} className="price-lg" />
           <p className="lead">{p.summary}</p>

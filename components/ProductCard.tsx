@@ -10,6 +10,7 @@ export function ProductCard({ product }: { product: Product }) {
     <Link href={`/p/${product.slug}`} className="pcard">
       <span className="pcard-in">
       <span className="pcard-img">
+        {product.tag && <span className={`tagpill tag-${product.tag === "Bestseller" ? "best" : product.tag === "New" ? "new" : "offer"}`}>{product.tag}</span>}
         <Pic name={product.image} alt={product.name} sizes="(max-width: 700px) 50vw, (max-width: 1100px) 33vw, 380px" />
       </span>
       <span className="pcard-meta">

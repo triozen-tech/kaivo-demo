@@ -23,7 +23,7 @@ export default function Home() {
           <div className="hero-pic" data-hero-pic><Pic name="hero" alt="Frosted bottles, a cup and a jar arranged on curved cream steps in soft light" sizes="100vw" position="70% 50%" priority /></div>
         </div>
         <div className="container hero-copy">
-          <p className="label" data-hero="kicker">New season</p>
+          <p className="hero-pill" data-hero="kicker"><i aria-hidden="true" />New season · Free sample shipping</p>
           <h1 className="display" data-hero="title">Quiet things for the way you live.</h1>
           <p className="lead" data-hero="lead">Tumblers, retro kitchen, jars and daily rituals. Made to be used, and to be looked at.</p>
           <Link href="/c/tumblers" className="btn btn-solid" data-hero="cta">Shop the collection <ArrowIcon /></Link>
