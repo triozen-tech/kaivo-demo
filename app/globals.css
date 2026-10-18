@@ -472,12 +472,12 @@ html[data-morph] .page-in { animation: none !important; }
   html.mo .cats-stack { display: none; }
 }
 .sc-title { position: absolute; z-index: 3; left: var(--gutter); top: 104px; font: 600 0.78rem/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-.sc-count { position: absolute; z-index: 3; right: var(--gutter); bottom: 62px; font: 600 0.78rem/1 var(--sans); letter-spacing: 0.14em; color: var(--muted); }
+.sc-count { position: absolute; z-index: 3; right: var(--gutter); bottom: 56px; font: 600 0.78rem/1 var(--sans); letter-spacing: 0.14em; color: var(--muted); background: rgba(244, 239, 231, 0.94); padding: 7px 12px; border-radius: 99px; }
 .sc-count b { color: var(--ink); font-weight: 700; }
 .sc-track { display: flex; width: max-content; height: 100%; will-change: transform; }
 .sc-panel { flex: none; width: 100vw; height: 100%; display: grid; grid-template-columns: 1fr 1.05fr; gap: 3vw; align-items: center; padding: 150px var(--gutter) 84px; }
 .sc-copy { display: grid; gap: 18px; justify-items: start; align-content: center; position: relative; z-index: 2; }
-.sc-n { font-family: var(--serif); font-size: 1.4rem; color: var(--clay); }
+.sc-n { font-family: var(--serif); font-size: 1.4rem; color: var(--clay-deep); }
 .sc-name { font-family: var(--serif); font-weight: 400; font-size: clamp(5rem, 11vw, 10.5rem); line-height: 0.88; letter-spacing: -0.02em; margin-right: -9vw; }
 .sc-tag { max-width: 380px; color: var(--muted); font-size: 1.05rem; }
 .sc-art { position: relative; height: 100%; min-height: 0; }
@@ -780,7 +780,7 @@ html:not(.mo) .acc-panel { transition: none; }
 .band-copy .btn { margin-top: 6px; }
 @media (min-width: 800px) { .band { min-height: 460px; } .band-copy { padding: 56px 56px 60px; } }
 .social .section-head { margin-bottom: 28px; }
-.soc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.soc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 @media (min-width: 560px) { .soc-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 1000px) { .soc-grid { grid-template-columns: repeat(6, 1fr); } }
 .soc-tile { position: relative; display: block; width: 100%; aspect-ratio: 1; border-radius: 16px; overflow: hidden; border: 0; padding: 0; background: var(--card); cursor: pointer; }
@@ -841,3 +841,6 @@ html:not(.mo) .acc-panel { transition: none; }
   .checkout { padding-bottom: 96px; }
 }
 @media (min-width: 960px) { .sum-body, .sum-in { display: contents; } }
+@media (max-width: 799px) {
+  .band-shade { background: linear-gradient(180deg, rgba(20, 17, 14, 0.7) 0%, rgba(20, 17, 14, 0.86) 40%, rgba(20, 17, 14, 0.94) 100%); }
+}
