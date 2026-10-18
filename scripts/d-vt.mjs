@@ -1,0 +1,21 @@
+import { chromium } from "playwright";
+const b = await chromium.launch({ channel: "chrome" });
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+const errs = []; p.on("console", (m) => m.type() === "error" && errs.push(m.text())); p.on("pageerror", (e) => errs.push(e.message));
+await p.goto("http://localhost:3018/"); await p.waitForTimeout(3500);
+await p.mouse.move(700, 500);
+await p.addStyleTag({ content: "::view-transition-group(morph){animation-duration:4s !important} ::view-transition-group(root){animation-duration:4s !important}" });
+const top = await p.evaluate(() => (document.querySelector(".pin-spacer") || document.querySelector(".showcase")).getBoundingClientRect().top + scrollY);
+await p.evaluate((y) => window.scrollTo(0, y + 2880), top); await p.waitForTimeout(1500);
+await p.locator(".sc-panel").nth(2).locator(".btn").click();
+await p.waitForTimeout(1500); await p.screenshot({ path: "shots/r4/vt-mid-category.png" });
+await p.waitForURL(/\/c\/shakers/); await p.waitForTimeout(4000);
+console.log("at", p.url(), "morph attr", await p.evaluate(() => document.documentElement.dataset.morph ?? "none"), "name leftover", await p.evaluate(() => [...document.querySelectorAll("*")].filter((e) => e.style.viewTransitionName).length));
+// product card -> product page
+await p.locator(".pcard").first().scrollIntoViewIfNeeded(); await p.waitForTimeout(800);
+await p.locator(".pcard").first().click(); await p.waitForTimeout(1500); await p.screenshot({ path: "shots/r4/vt-mid-product.png" });
+await p.waitForURL(/\/p\//); await p.waitForTimeout(4000);
+console.log("at", p.url(), "opacity pdp-media", await p.locator(".pdp-media").evaluate((e) => getComputedStyle(e).opacity), "overlay?", await p.evaluate(() => document.documentElement.dataset.morph ?? "none"));
+await p.goBack(); await p.waitForTimeout(1500); console.log("back ->", p.url());
+await p.goBack(); await p.waitForTimeout(1500); console.log("back ->", p.url(), "scrollW>", await p.evaluate(() => document.documentElement.scrollWidth > innerWidth));
+console.log("errs", errs); await b.close();

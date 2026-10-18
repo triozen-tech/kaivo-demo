@@ -24,7 +24,7 @@ export default async function CategoryPage({ params }: PageProps<"/c/[slug]">) {
           <h1 className="display">{cat.name}</h1>
           <p className="lead">{cat.tagline}</p>
         </div>
-        <div className="cat-hero-img" data-img-reveal>
+        <div className="cat-hero-img" data-img-reveal data-morph-target>
           <Pic name={cat.banner} alt="" sizes="(max-width: 900px) 100vw, 60vw" position={cat.focal} priority />
         </div>
       </section>

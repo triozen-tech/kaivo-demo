@@ -6,6 +6,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { ArrowIcon } from "@/components/Icons";
 import { lifestyle } from "@/data/lifestyle";
 import { Marquee } from "@/components/Marquee";
+import { MorphLink } from "@/components/MorphLink";
+import { Showcase } from "@/components/Showcase";
 
 
 const trust = [
@@ -30,24 +32,26 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section container" aria-labelledby="cats">
+      <Showcase />
+
+      <section className="section container cats-stack" aria-labelledby="cats" data-tint="sage">
         <div className="section-head" data-reveal>
           <h2 id="cats" className="h2">Shop by category</h2>
         </div>
         <div className="cat-grid" data-stagger>
           {categories.map((c) => (
-            <Link key={c.slug} href={`/c/${c.slug}`} className="cat-tile">
+            <MorphLink key={c.slug} href={`/c/${c.slug}`} className="cat-tile" morph=".cat-img">
               <span className="cat-img"><Pic name={c.banner} alt="" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 40vw" position={c.tile} /></span>
               <span className="cat-meta">
                 <span className="cat-name">{c.name}</span>
                 <span className="cat-tag">{c.tagline}</span>
               </span>
-            </Link>
+            </MorphLink>
           ))}
         </div>
       </section>
 
-      <section className="section container" aria-labelledby="feat">
+      <section className="section container" aria-labelledby="feat" data-tint="cream">
         <div className="section-head" data-reveal>
           <h2 id="feat" className="h2">Featured</h2>
           <p className="muted">A few things we reach for every day.</p>
@@ -59,7 +63,7 @@ export default function Home() {
 
       <Marquee />
 
-      <section className="section container" aria-labelledby="life">
+      <section className="section container" aria-labelledby="life" data-tint="clay">
         <div className="section-head" data-reveal>
           <h2 id="life" className="h2">Made for everyday</h2>
         </div>

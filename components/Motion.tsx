@@ -8,6 +8,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { finePointer, isStatic, setLenis, getLenis } from "@/lib/motion";
+import { isMorphing } from "@/lib/vt";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -78,16 +79,46 @@ export function Motion() {
       // —— reveals ——
       const trig = (el: Element) => ({ trigger: el, start: "top 90%", once: true });
       gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
-        gsap.from(el, { opacity: 0, y: 28, duration: 0.9, ease: "power3.out", clearProps: clear, scrollTrigger: trig(el) });
+        // a section head whose h2 is split word by word reveals only the rest of its children
+        const parts = el.matches(".section-head") && el.querySelector("h2.h2") ? Array.from(el.children).filter((c) => !c.matches("h2.h2")) : el;
+        if (Array.isArray(parts) && !parts.length) return;
+        gsap.from(parts, { opacity: 0, y: 28, duration: 0.9, ease: "power3.out", clearProps: clear, scrollTrigger: trig(el) });
       });
       gsap.utils.toArray<HTMLElement>("[data-stagger]").forEach((el) => {
         gsap.from(Array.from(el.children), { opacity: 0, y: 38, duration: 0.95, ease: "power3.out", stagger: 0.1, clearProps: clear, scrollTrigger: trig(el) });
       });
       gsap.utils.toArray<HTMLElement>("[data-img-reveal]").forEach((el) => {
+        if (isMorphing() && el.hasAttribute("data-morph-target")) return; // the browser is morphing into this image
         const img = el.querySelector("img");
         const tl = gsap.timeline({ scrollTrigger: trig(el) });
         tl.from(el, { opacity: 0, y: 30, duration: 1, ease: "power3.out", clearProps: clear }, 0);
         if (img) tl.from(img, { scale: 1.18, duration: 1.8, ease: "power2.out", clearProps: "transform" }, 0);
+      });
+
+      // —— headings: words rise out of a mask, one after another ——
+      const heads = gsap.utils.toArray<HTMLElement>(".section-head h2.h2, .cat-hero h1");
+      if (heads.length) {
+        gsap.set(heads, { opacity: 0 });
+        Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1500))]).then(() => {
+          if (cancelled) return;
+          ctx.add(() => {
+            heads.forEach((h) => {
+              const split = SplitText.create(h, { type: "words", mask: "words", wordsClass: "split-word" });
+              gsap.set(h, { opacity: 1 });
+              gsap.set(split.words, { yPercent: 115 });
+              ScrollTrigger.create({ trigger: h, start: "top 92%", once: true, onEnter: () => gsap.to(split.words, { yPercent: 0, duration: 1, ease: "power4.out", stagger: 0.07 }) });
+            });
+          });
+        });
+      }
+
+      // —— colour shift: the page background eases between cream, pale sage and pale clay ——
+      const tints: Record<string, string> = { cream: "#f4efe7", sage: "#eaf0e3", clay: "#f6e8de" };
+      let from = tints.cream;
+      gsap.utils.toArray<HTMLElement>("[data-tint]").forEach((sec) => {
+        const to = tints[sec.dataset.tint || "cream"];
+        gsap.fromTo(document.documentElement, { "--page-bg": from }, { "--page-bg": to, ease: "none", immediateRender: false, scrollTrigger: { trigger: sec, start: "top 80%", end: "top 35%", scrub: true } });
+        from = to;
       });
 
       // —— parallax (mouse/trackpad only) ——

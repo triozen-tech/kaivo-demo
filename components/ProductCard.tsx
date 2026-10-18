@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { MorphLink } from "./MorphLink";
 import type { Product } from "@/data/products";
 import { categories } from "@/data/categories";
 import { Pic } from "./ProductImage";
@@ -8,7 +8,7 @@ import { Price } from "./Price";
 export function ProductCard({ product }: { product: Product }) {
   const cat = categories.find((c) => c.slug === product.category);
   return (
-    <Link href={`/p/${product.slug}`} className="pcard">
+    <MorphLink href={`/p/${product.slug}`} className="pcard" morph=".pcard-img">
       <span className="pcard-in">
       <span className={`pcard-img${product.cut ? " cut-host" : ""}`} data-tilt-host={product.cut ? "" : undefined}>
         {product.tag && <span className={`tagpill tag-${product.tag === "Bestseller" ? "best" : product.tag === "New" ? "new" : "offer"}`}>{product.tag}</span>}
@@ -22,6 +22,6 @@ export function ProductCard({ product }: { product: Product }) {
         <Price value={product.price} />
       </span>
       </span>
-    </Link>
+    </MorphLink>
   );
 }

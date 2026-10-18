@@ -18,6 +18,7 @@ export function ProductGallery({ items }: { items: GalleryItem[] }) {
         className={`pdp-media${items[0].cut ? " cut-host" : ""}`}
         data-tilt-host={items[0].cut ? "" : undefined}
         data-img-reveal
+        data-morph-target
         onTouchStart={(e) => { x0.current = e.touches[0].clientX; }}
         onTouchEnd={(e) => {
           if (x0.current == null) return;
