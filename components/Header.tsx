@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 import { categories } from "@/data/categories";
 import { useCart } from "./CartProvider";
 import { Drawer } from "./Drawer";
-import { BagIcon, MenuIcon } from "./Icons";
+import { BagIcon, HeartIcon, MenuIcon } from "./Icons";
+import { useWish } from "./WishProvider";
 import { isStatic } from "@/lib/motion";
 
 export function Header() {
   const { count, setDrawerOpen, menuOpen, setMenuOpen } = useCart();
+  const { count: wishCount } = useWish();
   const path = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -49,10 +51,16 @@ export function Header() {
               <Link key={c.slug} href={`/c/${c.slug}`} aria-current={path === `/c/${c.slug}` ? "page" : undefined}>{c.name}</Link>
             ))}
           </nav>
-          <button type="button" className="icon-btn cart-btn" data-cart-btn onClick={() => setDrawerOpen(true)} aria-label={`Open cart, ${count} item${count === 1 ? "" : "s"}`}>
-            <BagIcon />
-            {count > 0 && <span key={count} className="badge">{count}</span>}
-          </button>
+          <div className="header-actions">
+            <Link href="/wishlist" className="icon-btn" aria-label={`Wishlist, ${wishCount} saved`}>
+              <HeartIcon />
+              {wishCount > 0 && <span key={wishCount} className="badge">{wishCount}</span>}
+            </Link>
+            <button type="button" className="icon-btn cart-btn" data-cart-btn onClick={() => setDrawerOpen(true)} aria-label={`Open cart, ${count} item${count === 1 ? "" : "s"}`}>
+              <BagIcon />
+              {count > 0 && <span key={count} className="badge">{count}</span>}
+            </button>
+          </div>
         </div>
       </header>
       <div className="header-space" aria-hidden="true" />

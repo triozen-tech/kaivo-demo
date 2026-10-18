@@ -16,6 +16,7 @@ export function Footer() {
         <div>
           <h3 className="label">Your order</h3>
           <ul>
+            <li><Link href="/wishlist">Wishlist</Link></li>
             <li><Link href="/cart">Cart</Link></li>
             <li><Link href="/checkout">Checkout</Link></li>
           </ul>

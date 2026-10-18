@@ -8,6 +8,9 @@ import { ProductGallery } from "@/components/ProductGallery";
 import { Price } from "@/components/Price";
 import { ProductBuy } from "@/components/ProductBuy";
 import { ProductCard } from "@/components/ProductCard";
+import { HeartButton } from "@/components/HeartButton";
+import { Rating } from "@/components/Rating";
+import { SampleNote } from "@/components/SampleNote";
 import { StickyBuy } from "@/components/StickyBuy";
 
 export const dynamicParams = false;
@@ -43,7 +46,8 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
         <div className="pdp-info" data-stagger>
           <p className="label">{cat.name}{p.tag && <span className={`tagpill tag-inline tag-${p.tag === "Bestseller" ? "best" : p.tag === "New" ? "new" : "offer"}`}>{p.tag}</span>}</p>
           <h1 className="h1">{p.name}</h1>
-          <Price value={p.price} className="price-lg" />
+          <div className="pdp-price-row"><Price value={p.price} className="price-lg" /><HeartButton slug={p.slug} name={p.name} className="heart-pdp heart-bordered" /></div>
+          <p className="rating-line"><Rating value={p.rating} count={p.reviewCount} /><span className="sample-note sample-note-inline">Sample ratings</span></p>
           <p className="lead">{p.summary}</p>
           <ProductBuy slug={p.slug} />
           <div className="pdp-block">
@@ -63,6 +67,7 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
       <section className="section container" aria-labelledby="also">
         <div className="section-head" data-reveal><h2 id="also" className="h2">You may also like</h2></div>
         <div className="grid" data-stagger>{related.map((r) => <ProductCard key={r.slug} product={r} />)}</div>
+        <SampleNote />
       </section>
     </>
   );

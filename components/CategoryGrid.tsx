@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import type { Product } from "@/data/products";
 import { ProductCard } from "./ProductCard";
+import { SampleNote } from "./SampleNote";
 
 type Sort = "featured" | "low" | "high";
 
@@ -32,6 +33,7 @@ export function CategoryGrid({ products }: { products: Product[] }) {
           <ProductCard key={p.slug} product={p} />
         ))}
       </div>
+      <SampleNote />
     </>
   );
 }

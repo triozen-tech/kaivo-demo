@@ -8,6 +8,7 @@ import { lifestyle } from "@/data/lifestyle";
 import { Marquee } from "@/components/Marquee";
 import { MorphLink } from "@/components/MorphLink";
 import { Showcase } from "@/components/Showcase";
+import { SampleNote } from "@/components/SampleNote";
 
 
 const trust = [
@@ -59,6 +60,7 @@ export default function Home() {
         <div className="grid" data-stagger>
           {feat.map((p) => <ProductCard key={p.slug} product={p} />)}
         </div>
+        <SampleNote />
       </section>
 
       <Marquee />

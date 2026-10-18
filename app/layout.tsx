@@ -3,6 +3,7 @@ import "@fontsource/instrument-serif/400.css";
 import "@fontsource/instrument-serif/400-italic.css";
 import "@fontsource-variable/manrope";
 import "./globals.css";
+import { WishProvider } from "@/components/WishProvider";
 import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
 import { CartDrawer } from "@/components/CartDrawer";
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: bootScript }} /></head>
       <body>
+        <WishProvider>
         <CartProvider>
           <a href="#main" className="skip">Skip to content</a>
           <Header />
@@ -36,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Cursor />
           <Intro />
         </CartProvider>
+        </WishProvider>
       </body>
     </html>
   );
