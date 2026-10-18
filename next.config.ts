@@ -1,7 +1,8 @@
-
 import type { NextConfig } from "next";
 
 const config: NextConfig = {
+  output: "export",
+
   turbopack: {
     root: process.cwd(),
   },
@@ -9,6 +10,7 @@ const config: NextConfig = {
   images: {
     qualities: [92],
     formats: ["image/webp"],
+    unoptimized: true,
   },
 };
 
