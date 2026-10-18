@@ -1,6 +1,6 @@
 // CLS + LCP via PerformanceObserver (production server). Motion ON, intro skipped off so real first visit is measured.
 import { chromium } from "playwright";
-const U = process.env.U || "http://localhost:3018";
+const U = process.env.U || "http://localhost:3019";
 const b = await chromium.launch({ channel: "chrome" });
 for (const [w, h, touch] of [[390, 844, true], [1440, 900, false]]) for (const path of ["/", "/shop", "/p/retro-kettle"]) {
   const ctx = await b.newContext({ viewport: { width: w, height: h }, isMobile: touch, hasTouch: touch, deviceScaleFactor: touch ? 3 : 1 });

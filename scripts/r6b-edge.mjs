@@ -1,6 +1,6 @@
 // Edge cases: corrupt storage, qty limits, empty states, double-tap, voucher min, back after success, empty checkout.
 import { chromium } from "playwright";
-const U = process.env.U || "http://localhost:3018";
+const U = process.env.U || "http://localhost:3019";
 const b = await chromium.launch({ channel: "chrome" });
 const res = [];
 const rec = (n, ok, d = "") => { res.push([n, ok ? "PASS" : "FAIL", d]); };

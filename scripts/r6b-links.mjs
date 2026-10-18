@@ -1,6 +1,6 @@
 // Crawl every internal link from every page; report broken ones, missing alt, sample labels, footer credit.
 import { chromium } from "playwright";
-const base = process.env.U || "http://localhost:3018";
+const base = process.env.U || "http://localhost:3019";
 const b = await chromium.launch({ channel: "chrome" });
 const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
 await ctx.addInitScript(() => sessionStorage.setItem("kaivo-intro", "1"));

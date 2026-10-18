@@ -1,6 +1,6 @@
 // Layout audit: overflow culprit, text <12px, interactive/text touching screen edge (<12px), uneven card heights per row, radii inventory.
 import { chromium } from "playwright";
-const U = process.env.U || "http://localhost:3018";
+const U = process.env.U || "http://localhost:3019";
 const routes = ["/", "/shop", "/c/tumblers", "/c/retro-kitchen", "/p/retro-kettle", "/p/beauty-serum", "/wishlist", "/cart", "/checkout", "/order/success", "/nope-404"];
 const order = { number: "KV-1", date: "x", name: "Asha", city: "Pune", delivery: "Standard", lines: [{ name: "Retro Kettle", qty: 1, price: 6499 }], subtotal: 6499, shipping: 0, total: 6499 };
 const b = await chromium.launch({ channel: "chrome" });
