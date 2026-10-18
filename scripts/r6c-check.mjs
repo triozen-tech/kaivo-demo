@@ -30,7 +30,7 @@ for (const [w, h] of sizes) {
   }
   // product sticky bar
   await p.goto(U + "/p/retro-kettle?static=1", { waitUntil: "load" }); await p.waitForTimeout(700);
-  await p.evaluate(() => scrollTo(0, 900)); await p.waitForTimeout(900);
+  await p.evaluate(() => scrollTo(0, 1500)); await p.waitForTimeout(900);
   await p.screenshot({ path: `${O}/${tag}sticky-${w}x${h}.png` });
   console.log(`${tag}${w}x${h} errors`, JSON.stringify(errs));
   await ctx.close();
