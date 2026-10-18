@@ -2,7 +2,7 @@
 import { chromium } from "playwright";
 const U = process.env.U || "http://localhost:3019", O = "shots/r6c/raw";
 const routes = ["/", "/shop", "/c/tumblers", "/c/retro-kitchen", "/p/retro-kettle", "/p/beauty-serum", "/wishlist", "/cart", "/checkout", "/order/success", "/404"];
-const order = { number: "KV-20261018-AB12C", date: "18 Oct 2026", name: "Asha Rao", city: "Pune", delivery: "Standard, 4 to 6 days", lines: [{ name: "Retro Kettle", qty: 1, price: 6499 }, { name: "Halo Tumbler 600 ml", qty: 2, price: 1499 }], subtotal: 9497, shipping: 0, total: 9497 };
+const order = { number: "KV-20261018-AB12C", date: "18 Oct 2026", name: "Asha Rao", city: "Muscat", delivery: "Standard, 4 to 6 days", lines: [{ name: "Retro Kettle", qty: 1, price: 6499 }, { name: "Halo Tumbler 600 ml", qty: 2, price: 1499 }], subtotal: 9497, shipping: 0, total: 9497 };
 const b = await chromium.launch({ channel: "chrome" });
 for (const w of [360, 390, 412, 768, 1440]) {
   const t = w < 1000;

@@ -65,21 +65,21 @@ for (const touch of [true, false]) {
   await ctx.close();
 }
 
-// 4. WELCOME200 min
+// 4. WELCOME1 min
 {
   const [ctx, p] = await mk();
   await p.goto(U + "/p/retro-kettle?static=1", { waitUntil: "load" }); await p.waitForTimeout(800);
   await p.evaluate(() => localStorage.setItem("kaivo-cart", JSON.stringify([{ slug: "jar-hearth", qty: 1 }])));
   await p.goto(U + "/cart?static=1", { waitUntil: "load" }); await p.waitForTimeout(800);
   const sub = await p.evaluate(() => document.body.innerText.match(/Subtotal[^\n]*\n?[^\n]*/)?.[0]);
-  await p.locator("main .voucher input").fill("WELCOME200"); await p.locator("main .voucher .btn").click(); await p.waitForTimeout(700);
+  await p.locator("main .voucher input").fill("WELCOME1"); await p.locator("main .voucher .btn").click(); await p.waitForTimeout(700);
   const msg = await p.evaluate(() => document.querySelector("main .voucher")?.innerText);
   const applied = await p.evaluate(() => localStorage.getItem("kaivo-code"));
-  rec("WELCOME200 below min refused", /1,?999/.test(msg || "") && !/WELCOME200/.test(applied || ""), JSON.stringify(msg).slice(0, 140) + " stored=" + applied + " | " + sub);
+  rec("WELCOME1 below min refused", /10\.000/.test(msg || "") && !/WELCOME1/.test(applied || ""), JSON.stringify(msg).slice(0, 140) + " stored=" + applied + " | " + sub);
   await p.evaluate(() => localStorage.setItem("kaivo-cart", JSON.stringify([{ slug: "retro-kettle", qty: 1 }])));
   await p.goto(U + "/cart?static=1", { waitUntil: "load" }); await p.waitForTimeout(800);
-  await p.locator("main .voucher input").fill("WELCOME200"); await p.locator("main .voucher .btn").click(); await p.waitForTimeout(700);
-  rec("WELCOME200 above min accepted", /WELCOME200|200/.test(await p.evaluate(() => document.querySelector("main .voucher")?.innerText)), "");
+  await p.locator("main .voucher input").fill("WELCOME1"); await p.locator("main .voucher .btn").click(); await p.waitForTimeout(700);
+  rec("WELCOME1 above min accepted", /WELCOME1/.test(await p.evaluate(() => document.querySelector("main .voucher")?.innerText)), "");
   await ctx.close();
 }
 
@@ -89,7 +89,7 @@ for (const touch of [true, false]) {
   await p.goto(U + "/p/tumbler-halo?static=1", { waitUntil: "load" }); await p.waitForTimeout(800);
   await p.getByRole("button", { name: /add to cart/i }).first().click(); await p.waitForTimeout(900);
   await p.goto(U + "/checkout?static=1", { waitUntil: "load" }); await p.waitForTimeout(900);
-  for (const l of await p.locator("input[name]:not([type=radio]):not([type=checkbox]):not([name=search])").all()) { const n = (await l.getAttribute("name")) || "", ty = (await l.getAttribute("type")) || ""; if (n === "email") await l.fill("a@b.com"); else if (/phone/i.test(n)) await l.fill("9876543210"); else if (/pin|zip/i.test(n)) await l.fill("560001"); else if (ty !== "hidden" && !(await l.inputValue())) await l.fill("Test value"); }
+  for (const l of await p.locator("input[name]:not([type=radio]):not([type=checkbox]):not([name=search])").all()) { const n = (await l.getAttribute("name")) || "", ty = (await l.getAttribute("type")) || ""; if (n === "email") await l.fill("a@b.com"); else if (/phone/i.test(n)) await l.fill("91234567"); else if (/postal/i.test(n)) await l.fill("112"); else if (ty !== "hidden" && !(await l.inputValue())) await l.fill("Test value"); }
   for (const s of await p.locator("select").all()) await s.selectOption({ index: 1 });
   await p.locator(".place-bar button[type=submit]").click(); await p.waitForURL(/success/, { timeout: 8000 }); await p.waitForTimeout(1200);
   const o1 = await p.evaluate(() => sessionStorage.getItem("kaivo-last-order"));

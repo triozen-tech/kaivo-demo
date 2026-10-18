@@ -1,7 +1,7 @@
-# Kaivo: pitch notes
+# OnTrend Oman: pitch notes
 
 ## What it is
-Kaivo is a **concept website for a fictional home and lifestyle store**, built by Triozen Tech as a showcase of what a modern online shop can look and feel like. It sells five kinds of everyday objects: **tumblers, retro kitchen, shakers, food jars and beauty** (15 sample products). The look is calm and premium: warm cream background, one clay accent colour, a serif headline font, soft rounded cards.
+OnTrend Oman is a **concept website for a home and lifestyle store**, built by Triozen Tech as a showcase of what a modern online shop can look and feel like. It sells five kinds of everyday objects: **tumblers, retro kitchen, shakers, food jars and beauty** (15 sample products). The look is calm and premium: warm cream background, one clay accent colour, a serif headline font, soft rounded cards.
 
 It is a working front end, not a real shop: you can browse, search, filter, add to cart, apply a code, fill in checkout and see an order confirmation. There is no payment, no account and no server-side order.
 
@@ -16,7 +16,7 @@ Footer on every page: "Concept website by Triozen Tech".
 | Product `/p/<name>` | Gallery, price, quantity, add to cart, details, sample reviews, "complete the set" suggestions |
 | Wishlist `/wishlist` | The hearted products |
 | Cart `/cart` | Lines, quantities, voucher box, delivery progress, totals |
-| Checkout `/checkout` | Contact and delivery form with validation, delivery choice, order summary |
+| Checkout `/checkout` | Contact and delivery form (Oman: +968 mobile, governorate list, optional postal code) with validation, delivery choice, order summary |
 | Order placed `/order/success` | Confirmation with an order number and a summary of what was "ordered" |
 | Not found | A friendly 404 page with a way back to the shop |
 
@@ -54,19 +54,19 @@ Footer on every page: "Concept website by Triozen Tech".
 - The site is set to **noindex** and `robots.txt` disallows everything, so the demo does not appear in search engines.
 
 ## What is sample or demo (please say this out loud when presenting)
-- **Brand and products:** Kaivo is fictional. Product names, descriptions and specifications are invented.
-- **Prices:** all prices are sample prices and are labelled "sample price" next to the number. Free-shipping and express-delivery amounts are sample rules.
+- **Brand and products:** the OnTrend Oman store here is a concept demo. Product names, descriptions and specifications are invented.
+- **Prices:** all prices are sample prices in Omani rial (OMR, three decimals, for example OMR 7.500; stored internally as whole baisa) and are labelled "sample price" next to the number. Free express delivery from OMR 15.000, express delivery OMR 1.000 and the voucher rules are sample rules.
 - **Ratings:** star ratings and counts are sample data, labelled "Sample ratings".
 - **Reviews:** the review text and names are invented, labelled "Sample reviews for this concept demo".
-- **Voucher codes:** `KAIVO10` gives 10% off any cart; `WELCOME200` gives ₹200 off and needs a cart of at least ₹1,999 (below that, it says so). Both are demo codes.
-- **Social grid:** the "@kaivo.home" tiles and like counts are sample content, not a real account.
+- **Voucher codes:** `ONTREND10` gives 10% off any cart; `WELCOME1` gives OMR 1.000 off and needs a cart of at least OMR 10.000 (below that, it says so). Both are demo codes.
+- **Social grid:** the "@ontrend.oman" tiles and like counts are sample content, not a real account.
 - **Newsletter:** only checks the email format. Nothing is saved or sent.
 - **Checkout:** no payment is taken and no payment details are asked for. Nothing is sent to a server; the order number and confirmation exist only in the browser.
 - **Photography:** concept images of products and rooms, with no people in them.
 - **Contact details, delivery and returns text:** placeholder wording for the concept.
 
 ## Not claimed
-Kaivo is not a live store, has no stock or logistics, no real payments, accounts or order history, and has not been tested on iPhone Safari or other browsers beyond Chrome-based testing on this Mac.
+OnTrend Oman here is not a live store, has no stock or logistics, no real payments, accounts or order history, and has not been tested on iPhone Safari or other browsers beyond Chrome-based testing on this Mac.
 
 ## Files for sharing
 - `DEPLOY.md`: how to put the demo online (Vercel) or share it temporarily from this Mac (cloudflared).

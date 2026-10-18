@@ -108,15 +108,15 @@ async function tour(browser, cfg) {
     await glideBy(p, cfg.touch ? 640 : 520, 1800); await wait(1000);
   });
 
-  // 7. add to cart, voucher KAIVO10
+  // 7. add to cart, voucher ONTREND10
   await safe("cart", async () => {
     log("add to cart");
     await tap(p.getByRole("button", { name: /add to cart/i }).first()); await wait(1800);
-    log("voucher KAIVO10");
+    log("voucher ONTREND10");
     const input = p.locator(".voucher input:visible").first();
     await input.waitFor({ state: "visible", timeout: 6000 });
     if (cfg.touch) await input.tap(); else await moveTo(p, input);
-    await input.pressSequentially("KAIVO10", { delay: 100 }); await wait(400);
+    await input.pressSequentially("ONTREND10", { delay: 100 }); await wait(400);
     await tap(p.locator(".voucher .btn:visible").first()); await wait(2200);
   });
 
@@ -126,9 +126,9 @@ async function tour(browser, cfg) {
     await tap(p.locator('.drawer.is-open a[href="/checkout"]').first());
     await p.waitForURL(/\/checkout/, { timeout: 8000 }); await wait(1800);
     const fill = async (name, text) => { const f = p.locator(`main input[name="${name}"]`); await (cfg.touch ? f.tap() : moveTo(p, f, 10).then(() => f.click())); await f.pressSequentially(text, { delay: 40 }); await wait(150); };
-    await fill("name", "Asha Demo"); await fill("phone", "9876543210"); await fill("email", "asha@example.com");
-    await fill("address", "12 Sample Street"); await fill("city", "Bengaluru");
-    await p.selectOption('select[name="state"]', { index: 1 }); await fill("pincode", "560001"); await wait(500);
+    await fill("name", "Asha Demo"); await fill("phone", "91234567"); await fill("email", "asha@example.com");
+    await fill("address", "12 Sample Street"); await fill("city", "Muscat");
+    await p.selectOption('select[name="governorate"]', { index: 1 }); await fill("postal", "112"); await wait(500);
     await glideBy(p, cfg.touch ? 520 : 380, 1500); await wait(700);
     log("place order");
     await tap(p.locator(".place-bar button[type=submit]"));

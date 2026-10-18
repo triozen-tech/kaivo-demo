@@ -1,6 +1,6 @@
 const messages = [
   "Free sample shipping on every demo order",
-  "Use code KAIVO10 for 10% off (sample)",
+  "Use code ONTREND10 for 10% off (sample)",
   "New season is here",
   "Easy 30-day returns",
 ];

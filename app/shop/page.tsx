@@ -4,7 +4,7 @@ import { products } from "@/data/products";
 import { ShopBrowser } from "@/components/ShopBrowser";
 import { ClosingBanner } from "@/components/Bands";
 
-export const metadata: Metadata = { title: "Shop all", description: "Every Kaivo product in one place. Sample prices, concept store." };
+export const metadata: Metadata = { title: "Shop all", description: "Every OnTrend product in one place. Sample prices, concept store." };
 
 export default function ShopPage() {
   return (

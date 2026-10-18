@@ -6,7 +6,7 @@ import { useCart } from "./CartProvider";
 import { Pic } from "./ProductImage";
 import { Stepper } from "./Stepper";
 import { Price } from "./Price";
-import { inr } from "@/lib/format";
+import { omr } from "@/lib/format";
 
 export function CartLines({ compact = false, onNavigate }: { compact?: boolean; onNavigate?: () => void }) {
   const { lines, setQty, remove } = useCart();
@@ -28,7 +28,7 @@ export function CartLines({ compact = false, onNavigate }: { compact?: boolean; 
                 <button type="button" className="textlink" onClick={() => remove(l.slug)} aria-label={`Remove ${p.name}`}>Remove</button>
               </div>
             </div>
-            <strong className="line-total">{inr(p.price * l.qty)}</strong>
+            <strong className="line-total">{omr(p.price * l.qty)}</strong>
           </li>
         );
       })}

@@ -3,7 +3,7 @@
 import { useId, useRef, useState } from "react";
 import { useCart } from "./CartProvider";
 
-/** Promo code box. Sample codes: KAIVO10, WELCOME200. */
+/** Promo code box. Sample codes: ONTREND10, WELCOME1. */
 export function Voucher() {
   const { code, codeNote, applyCode, removeCode } = useCart();
   const [text, setText] = useState("");
@@ -38,7 +38,7 @@ export function Voucher() {
       <label htmlFor={id} className="voucher-label">Promo code</label>
       <div key={shake} className={`voucher-row${shake ? " is-shaking" : ""}${error ? " has-error" : ""}`}>
         <input
-          id={id} ref={input} value={text} autoComplete="off" autoCapitalize="characters" spellCheck={false} placeholder="KAIVO10"
+          id={id} ref={input} value={text} autoComplete="off" autoCapitalize="characters" spellCheck={false} placeholder="ONTREND10"
           onChange={(e) => { setText(e.target.value); if (error) setError(""); }}
           onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); submit(); } }}
           aria-invalid={!!error} aria-describedby={error ? `${id}-e` : undefined}

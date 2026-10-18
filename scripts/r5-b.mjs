@@ -10,8 +10,8 @@ for (const [w, h, touch] of [[390, 844, true], [1440, 900, false]]) {
   const c0 = await n();
   await p.getByRole("button", { name: /Load more/ }).click(); await p.waitForTimeout(300);
   const c1 = await n();
-  if (touch) { await p.locator(".fb-open").tap(); await p.waitForTimeout(700); await p.getByRole("button", { name: "Under ₹1,000" }).tap(); await p.getByRole("button", { name: "Apply" }).tap(); }
-  else { await p.getByRole("button", { name: "Under ₹1,000" }).click(); }
+  if (touch) { await p.locator(".fb-open").tap(); await p.waitForTimeout(700); await p.getByRole("button", { name: "Under OMR 5" }).tap(); await p.getByRole("button", { name: "Apply" }).tap(); }
+  else { await p.getByRole("button", { name: "Under OMR 5" }).click(); }
   await p.waitForTimeout(500);
   const c2 = await n();
   await p.getByRole("button", { name: "Clear all" }).first().click(); await p.waitForTimeout(300);

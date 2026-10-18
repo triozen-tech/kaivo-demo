@@ -21,7 +21,7 @@ export const generateStaticParams = () => products.map((p) => ({ slug: p.slug })
 
 export async function generateMetadata({ params }: PageProps<"/p/[slug]">): Promise<Metadata> {
   const p = getProduct((await params).slug);
-  return { title: p?.name, description: p ? `${p.summary} Sample price, Kaivo demo store.` : undefined };
+  return { title: p?.name, description: p ? `${p.summary} Sample price, OnTrend Oman demo store.` : undefined };
 }
 
 export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
@@ -32,7 +32,7 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
   const life = lifestyle[products.findIndex((x) => x.slug === p.slug) % lifestyle.length];
   const gallery = [
     { name: p.image, alt: p.name, label: "Product", position: undefined, cut: p.cut },
-    { name: cat.banner, alt: `${cat.name} in the Kaivo range`, label: "In the range", position: cat.focal, zoom: 1.35 },
+    { name: cat.banner, alt: `${cat.name} in the OnTrend range`, label: "In the range", position: cat.focal, zoom: 1.35 },
     { name: life.img, alt: life.alt, label: "At home", position: life.pos, zoom: 1.2 },
   ];
 

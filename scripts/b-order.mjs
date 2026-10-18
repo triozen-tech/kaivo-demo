@@ -6,12 +6,12 @@ await p.goto("http://localhost:3018/p/tumbler-halo");
 await p.waitForTimeout(1500);
 await p.getByRole("button", { name: /add to cart/i }).first().click();
 await p.waitForTimeout(1200);
-await p.fill(".voucher input", "KAIVO10"); await p.click(".voucher .btn"); await p.waitForTimeout(1200);
+await p.fill(".voucher input", "ONTREND10"); await p.click(".voucher .btn"); await p.waitForTimeout(1200);
 await p.screenshot({ path: "shots/r4/drawer.png" });
 await p.goto("http://localhost:3018/checkout"); await p.waitForTimeout(1000);
 for (const l of await p.locator("input:not([type=radio]):not([type=checkbox])").all()) {
   const n = (await l.getAttribute("name")) || "", t = (await l.getAttribute("type")) || "";
-  if (n === "email") await l.fill("a@b.com"); else if (/phone/i.test(n)) await l.fill("9876543210"); else if (/pin|zip/i.test(n)) await l.fill("560001"); else if (t !== "hidden" && !(await l.inputValue())) await l.fill("Test value");
+  if (n === "email") await l.fill("a@b.com"); else if (/phone/i.test(n)) await l.fill("91234567"); else if (/postal/i.test(n)) await l.fill("112"); else if (t !== "hidden" && !(await l.inputValue())) await l.fill("Test value");
 }
 for (const sel of await p.locator("select").all()) await sel.selectOption({ index: 1 });
 await p.click("button[type=submit]"); await p.waitForURL(/success/, { timeout: 8000 }).catch(() => {});

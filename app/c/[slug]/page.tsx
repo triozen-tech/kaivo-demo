@@ -10,7 +10,7 @@ export const generateStaticParams = () => categories.map((c) => ({ slug: c.slug 
 
 export async function generateMetadata({ params }: PageProps<"/c/[slug]">): Promise<Metadata> {
   const c = getCategory((await params).slug);
-  return { title: c?.name, description: c ? `${c.tagline} Shop ${c.name.toLowerCase()} at the Kaivo demo store.` : undefined };
+  return { title: c?.name, description: c ? `${c.tagline} Shop ${c.name.toLowerCase()} at the OnTrend Oman demo store.` : undefined };
 }
 
 export default async function CategoryPage({ params }: PageProps<"/c/[slug]">) {
@@ -20,7 +20,7 @@ export default async function CategoryPage({ params }: PageProps<"/c/[slug]">) {
     <>
       <section className="cat-banner" style={{ "--sm": cat.shade?.m ?? 0.75, "--sd": cat.shade?.d ?? 0.92, "--inset": cat.inset ?? "0%" } as React.CSSProperties}>
         <div className="cat-banner-img" data-img-reveal data-morph-target>
-          <Pic name={cat.banner} alt={`${cat.name}: a styled scene from the Kaivo range`} sizes="100vw" position={cat.focal} priority />
+          <Pic name={cat.banner} alt={`${cat.name}: a styled scene from the OnTrend range`} sizes="100vw" position={cat.focal} priority />
         </div>
         <div className="cat-banner-shade" aria-hidden="true" />
         <div className="cat-banner-copy container" data-stagger>

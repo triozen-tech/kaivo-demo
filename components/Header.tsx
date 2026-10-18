@@ -7,6 +7,7 @@ import { categories } from "@/data/categories";
 import { useCart } from "./CartProvider";
 import { Drawer } from "./Drawer";
 import { BagIcon, HeartIcon, MenuIcon, SearchIcon } from "./Icons";
+import { Logo } from "./Logo";
 import { OfferStrip } from "./OfferStrip";
 import { SearchOverlay } from "./SearchOverlay";
 import { useWish } from "./WishProvider";
@@ -50,7 +51,7 @@ export function Header() {
       <header className={`header${scrolled ? " is-scrolled" : ""}${hidden ? " is-hidden" : ""}`}>
         <div className="header-in container">
           <button type="button" className="icon-btn menu-btn" onClick={() => setMenuOpen(true)} aria-label="Open menu"><MenuIcon /></button>
-          <Link href="/" className="logo" aria-label="Kaivo, home">Kaivo</Link>
+          <Link href="/" className="logo" aria-label="OnTrend Oman, home"><Logo /></Link>
           <nav className="nav" aria-label="Categories">
             <Link href="/shop" aria-current={path === "/shop" ? "page" : undefined}>Shop all</Link>
             {categories.map((c) => (

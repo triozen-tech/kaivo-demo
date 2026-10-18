@@ -61,9 +61,9 @@ for (const [w, h] of sizes) {
   await load("/checkout");
   await page.getByRole("button", { name: "Place demo order" }).click();
   await shot("checkout-errors");
-  await page.fill("#f-name", "Asha Rao"); await page.fill("#f-phone", "9876543210"); await page.fill("#f-email", "asha@example.com");
-  await page.fill("#f-address", "12 Lake View Road"); await page.fill("#f-city", "Bengaluru");
-  await page.selectOption("#f-state", "Karnataka"); await page.fill("#f-pincode", "560001");
+  await page.fill("#f-name", "Asha Rao"); await page.fill("#f-phone", "91234567"); await page.fill("#f-email", "asha@example.com");
+  await page.fill("#f-address", "12 Lake View Road"); await page.fill("#f-city", "Muscat");
+  await page.selectOption("#f-governorate", "Muscat"); await page.fill("#f-postal", "112");
   await page.getByText("Express, 1 to 2 days").click();
   await shot("checkout");
   await page.getByRole("button", { name: "Place demo order" }).click();

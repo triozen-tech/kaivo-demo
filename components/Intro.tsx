@@ -2,9 +2,10 @@
 
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { Logo } from "./Logo";
 
 /**
- * First visit to the home page in a session: the wordmark rises on clay, then the curtain lifts (1.4 s).
+ * First visit to the home page in a session: the logo rises on cream, then the curtain lifts (1.4 s).
  * The boot script in layout.tsx adds `intro` to <html> only when it applies (not in ?static=1, not on a return visit)
  * and removes it again after 3 s whatever happens. Transform and opacity only.
  */
@@ -24,5 +25,5 @@ export function Intro() {
     return () => { tl.kill(); end(); };
   }, []);
 
-  return <div ref={root} className="intro-curtain" aria-hidden="true"><span ref={word} className="intro-word">Kaivo</span></div>;
+  return <div ref={root} className="intro-curtain" aria-hidden="true"><span ref={word} className="intro-word"><Logo /></span></div>;
 }

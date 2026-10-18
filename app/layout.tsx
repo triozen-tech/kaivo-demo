@@ -17,15 +17,15 @@ import { Intro } from "@/components/Intro";
 const bootScript = `(function(){var d=document.documentElement;if(/[?&]static=1/.test(location.search))return;d.classList.add("mo","mo-hold");var i=0;try{i=location.pathname==="/"&&!sessionStorage.getItem("kaivo-intro")}catch(e){}if(i)d.classList.add("intro");setTimeout(function(){d.classList.remove("mo-hold","intro")},3000)})()`;
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3019");
-const description = "Kaivo is a premium home and lifestyle store: tumblers, retro kitchen, shakers, food jars and beauty. Concept website by Triozen Tech.";
+const description = "OnTrend Oman is a premium home and lifestyle store: tumblers, retro kitchen, shakers, food jars and beauty. Concept website by Triozen Tech.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "Kaivo | demo store", template: "%s | Kaivo demo store" },
+  title: { default: "OnTrend Oman | demo store", template: "%s | OnTrend Oman demo store" },
   description,
   robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } }, // concept demo: keep out of search
-  openGraph: { type: "website", siteName: "Kaivo demo store", title: "Kaivo | demo store", description, locale: "en_IN" },
-  twitter: { card: "summary_large_image", title: "Kaivo | demo store", description },
+  openGraph: { type: "website", siteName: "OnTrend Oman demo store", title: "OnTrend Oman | demo store", description, locale: "en_OM" },
+  twitter: { card: "summary_large_image", title: "OnTrend Oman | demo store", description },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

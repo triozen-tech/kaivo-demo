@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { categories } from "@/data/categories";
+import { Logo } from "./Logo";
 import { Newsletter } from "./Newsletter";
 
 export function Footer() {
@@ -8,7 +9,7 @@ export function Footer() {
       <div className="container"><Newsletter /></div>
       <div className="container footer-grid">
         <div className="footer-brand">
-          <p className="logo">Kaivo</p>
+          <Link href="/" className="logo" aria-label="OnTrend Oman, home"><Logo reverse /></Link>
           <p>Calm, well-made things for the home and the day ahead.</p>
         </div>
         <div>
@@ -26,8 +27,8 @@ export function Footer() {
       </div>
       <div className="container">
         <div className="footer-base">
-          <p>Concept website by Triozen Tech</p>
-          <p>All prices are sample prices in INR (₹) and not real offers. No payment is taken.</p>
+          <p>© OnTrend Oman · Concept website by Triozen Tech</p>
+          <p>All prices are sample prices in Omani rial (OMR) and not real offers. No payment is taken.</p>
         </div>
       </div>
     </footer>

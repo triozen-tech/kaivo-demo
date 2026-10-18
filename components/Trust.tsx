@@ -20,7 +20,7 @@ export function TrustBox() {
 /** Dark band above the footer on every page. */
 export function TrustBand() {
   return (
-    <section className="trustband" aria-label="Why shop with Kaivo">
+    <section className="trustband" aria-label="Why shop with OnTrend">
       <div className="container trustband-in">
         {items.map((i) => (
           <div key={i.t} className="tb-item">

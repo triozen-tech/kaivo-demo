@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { isStatic } from "@/lib/motion";
 import Link from "next/link";
-import { inr } from "@/lib/format";
+import { omr } from "@/lib/format";
 import { ORDER_KEY, type Order } from "@/lib/order";
 
 export function OrderSummary() {
@@ -65,13 +65,13 @@ export function OrderSummary() {
         <h2 className="h4">Summary</h2>
         <ul className="mini mini-text">
           {order.lines.map((l) => (
-            <li key={l.name}><span>{l.qty} × {l.name}</span><span>{inr(l.price * l.qty)}</span></li>
+            <li key={l.name}><span>{l.qty} × {l.name}</span><span>{omr(l.price * l.qty)}</span></li>
           ))}
         </ul>
-        <div className="sum-row"><span>Subtotal</span><span>{inr(order.subtotal)}</span></div>
-        {order.discount ? <div className="sum-row sum-disc"><span>Discount ({order.code})</span><span>−{inr(order.discount)}</span></div> : null}
-        <div className="sum-row"><span>Shipping ({order.delivery})</span><span>{order.shipping === 0 ? "Free" : inr(order.shipping)}</span></div>
-        <div className="sum-row sum-total"><span>Total</span><strong>{inr(order.total)}</strong></div>
+        <div className="sum-row"><span>Subtotal</span><span>{omr(order.subtotal)}</span></div>
+        {order.discount ? <div className="sum-row sum-disc"><span>Discount ({order.code})</span><span>−{omr(order.discount)}</span></div> : null}
+        <div className="sum-row"><span>Shipping ({order.delivery})</span><span>{order.shipping === 0 ? "Free" : omr(order.shipping)}</span></div>
+        <div className="sum-row sum-total"><span>Total</span><strong>{omr(order.total)}</strong></div>
         <p className="fine">All prices are sample prices. Delivery to {order.city}.</p>
       </div>
       <Link href="/" className="btn btn-solid">Back to the shop</Link>

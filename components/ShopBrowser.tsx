@@ -15,9 +15,9 @@ type Sort = "featured" | "low" | "high" | "top";
 type Filters = { price: PriceKey | null; tag: Tag | null; min4: boolean };
 
 const PRICES: { key: PriceKey; label: string; ok: (p: number) => boolean }[] = [
-  { key: "u1", label: "Under ₹1,000", ok: (p) => p < 1000 },
-  { key: "mid", label: "₹1,000 to ₹2,000", ok: (p) => p >= 1000 && p <= 2000 },
-  { key: "hi", label: "Above ₹2,000", ok: (p) => p > 2000 },
+  { key: "u1", label: "Under OMR 5", ok: (p) => p < 5000 },
+  { key: "mid", label: "OMR 5 to 10", ok: (p) => p >= 5000 && p <= 10000 },
+  { key: "hi", label: "Above OMR 10", ok: (p) => p > 10000 },
 ];
 const TAGS: Tag[] = ["New", "Bestseller", "Sample offer"];
 const NONE: Filters = { price: null, tag: null, min4: false };

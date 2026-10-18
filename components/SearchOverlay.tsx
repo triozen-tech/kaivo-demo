@@ -8,7 +8,7 @@ import { categories } from "@/data/categories";
 import { Pic } from "./ProductImage";
 import { CloseIcon } from "./Icons";
 import { matches } from "./ShopBrowser";
-import { inr } from "@/lib/format";
+import { omr } from "@/lib/format";
 import { getLenis } from "@/lib/motion";
 
 /** Full-screen search: live name and category matches with thumbnails, Esc closes, Enter opens /shop?q=. */
@@ -57,7 +57,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
                     <Link href={`/p/${p.slug}`} className="search-item" onClick={onClose}>
                       <span className="search-thumb"><Pic name={p.image} alt="" sizes="64px" /></span>
                       <span className="search-name">{p.name}<small>{categories.find((c) => c.slug === p.category)?.name}</small></span>
-                      <span className="search-price">{inr(p.price)}</span>
+                      <span className="search-price">{omr(p.price)}</span>
                     </Link>
                   </li>
                 ))}

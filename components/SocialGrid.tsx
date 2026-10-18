@@ -19,7 +19,7 @@ export function SocialGrid() {
   return (
     <section className="section container social" aria-labelledby="soc" data-tint="sage">
       <div className="section-head" data-reveal>
-        <h2 id="soc" className="h2">Follow @kaivo.home</h2>
+        <h2 id="soc" className="h2">Follow @ontrend.oman</h2>
         <p className="muted">Concept social grid · sample counts</p>
       </div>
       <ul className="soc-grid" data-stagger>

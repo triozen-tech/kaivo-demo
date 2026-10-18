@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { CheckoutForm } from "@/components/CheckoutForm";
 
-export const metadata: Metadata = { title: "Checkout", description: "A demo checkout for the Kaivo concept store. No payment is taken." };
+export const metadata: Metadata = { title: "Checkout", description: "A demo checkout for the OnTrend Oman concept store. No payment is taken." };
 
 export default function CheckoutPage() {
   return (

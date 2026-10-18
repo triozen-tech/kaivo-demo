@@ -24,7 +24,7 @@ function Band({ img, alt, position, shade = 0.78, id, eyebrow, title, text, code
 
 /** Mid-page offer on home, over a lifestyle picture. */
 export function PromoBanner() {
-  return <Band id="promo" tint="clay" img="l-2" alt="A shaker bottle and a folded towel in a canvas tote on a wooden bench" position="75% 50%" eyebrow="This season" title="Your everyday companion" text="From the morning commute to the evening walk." code="KAIVO10" href="/shop" cta="Shop" />;
+  return <Band id="promo" tint="clay" img="l-2" alt="A shaker bottle and a folded towel in a canvas tote on a wooden bench" position="75% 50%" eyebrow="This season" title="Your everyday companion" text="From the morning commute to the evening walk." code="ONTREND10" href="/shop" cta="Shop" />;
 }
 
 /** Last band before the footer on home and /shop. */

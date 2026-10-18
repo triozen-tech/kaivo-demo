@@ -1,6 +1,6 @@
-# Kaivo: deploy steps (run these in your own terminal)
+# OnTrend Oman: deploy steps (run these in your own terminal)
 
-Kaivo is a Next.js 16 app. The code is on GitHub at https://github.com/triozen-tech/kaivo-demo. Local commands run from the project folder:
+OnTrend Oman is a Next.js 16 app (the project folder and the GitHub repo keep the working name `kaivo`). The code is on GitHub at https://github.com/triozen-tech/kaivo-demo; the rebrand lives on the branch `ontrend-rebrand` until it is merged. Local commands run from the project folder:
 
 ```bash
 cd "/Users/hosanna/3D Websites/kaivo"
@@ -21,7 +21,7 @@ Open http://localhost:3019 and click through. Stop with `Ctrl+C`.
 ## A. Vercel (main option, from GitHub)
 
 1. In Vercel choose **Add New**, then **Project**.
-2. Import **triozen-tech/kaivo-demo**.
+2. Import **triozen-tech/kaivo-demo** (to preview the rebrand, set the Production Branch or pick the preview of `ontrend-rebrand`).
 3. Framework is **Next.js** (detected automatically); leave the other settings as they are.
 4. Click **Deploy**.
 
