@@ -1,6 +1,6 @@
-import { chromium } from "playwright";
-const b = await chromium.launch({ channel: "chrome" });
-const U = "http://localhost:3018"; let bad = 0;
+import { chromium, webkit } from "playwright";
+const b = await (process.env.ENGINE === "webkit" ? webkit.launch() : chromium.launch({ channel: "chrome" }));
+const U = process.env.U || "http://localhost:3019"; let bad = 0;
 for (const [w, h] of [[360, 740], [390, 844], [412, 915], [768, 1024], [1440, 900]]) {
   const t = w < 1000;
   const ctx = await b.newContext({ viewport: { width: w, height: h }, isMobile: t, hasTouch: t });
