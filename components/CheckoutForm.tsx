@@ -43,6 +43,7 @@ export function CheckoutForm() {
   const [v, setV] = useState<Values>(empty);
   const [errors, setErrors] = useState<Errors>({});
   const [busy, setBusy] = useState(false);
+  const [sumOpen, setSumOpen] = useState(false);
   const form = useRef<HTMLFormElement>(null);
 
   const picked = deliveryOptions.find((d) => d.id === v.delivery) ?? deliveryOptions[0];
@@ -105,7 +106,7 @@ export function CheckoutForm() {
           <legend className="h4">Contact</legend>
           <div className="row">
             {field("name", "Full name", { autoComplete: "name" })}
-            {field("phone", "Mobile number", { autoComplete: "tel-national", inputMode: "numeric", placeholder: "10 digits" })}
+            {field("phone", "Mobile number", { type: "tel", autoComplete: "tel-national", inputMode: "tel", placeholder: "10 digits" })}
           </div>
           {field("email", "Email", { type: "email", autoComplete: "email" })}
         </fieldset>
@@ -124,7 +125,7 @@ export function CheckoutForm() {
               {errors.state && <p className="err" id="e-state">{errors.state}</p>}
             </div>
           </div>
-          {field("pincode", "Pincode", { autoComplete: "postal-code", inputMode: "numeric", maxLength: 6, placeholder: "6 digits" })}
+          {field("pincode", "Pincode", { autoComplete: "postal-code", inputMode: "numeric", pattern: "[0-9]*", maxLength: 6, placeholder: "6 digits" })}
         </fieldset>
 
         <fieldset>
@@ -141,8 +142,12 @@ export function CheckoutForm() {
         </fieldset>
       </div>
 
-      <aside className="summary" aria-label="Order summary">
-        <h2 className="h4">Order summary</h2>
+      <aside className={`summary${sumOpen ? " is-open" : ""}`} aria-label="Order summary">
+        <button type="button" className="sum-toggle" aria-expanded={sumOpen} aria-controls="sum-body" onClick={() => setSumOpen((o) => !o)}>
+          <span>Order summary</span><span className="sum-toggle-total"><Money value={total} /></span><i className="sum-chev" aria-hidden="true" />
+        </button>
+        <div className="sum-body" id="sum-body"><div className="sum-in">
+        <h2 className="h4 sum-h">Order summary</h2>
         <ul className="mini">
           {lines.map((l) => {
             const p = getProduct(l.slug)!;
@@ -161,7 +166,11 @@ export function CheckoutForm() {
         <div className="sum-row"><span>Shipping</span><span>{delivery.price === 0 ? "Free" : inr(delivery.price)}</span></div>
         <div className="sum-row sum-total"><span>Total</span><strong><Money value={total} /></strong></div>
         <p className="fine">All prices are sample prices. Demo checkout: no payment is taken.</p>
-        <button type="submit" className="btn btn-solid btn-block" disabled={busy}>{busy ? "Placing order…" : "Place demo order"}</button>
+        </div></div>
+        <div className="place-bar">
+          <span className="place-total"><small>Total (sample)</small><strong><Money value={total} /></strong></span>
+          <button type="submit" className="btn btn-solid btn-block" disabled={busy}>{busy ? "Placing order…" : "Place demo order"}</button>
+        </div>
       </aside>
     </form>
   );

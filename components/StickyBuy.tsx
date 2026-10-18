@@ -16,7 +16,7 @@ export function StickyBuy({ slug, name, price, image }: { slug: string; name: st
   useEffect(() => {
     const target = document.querySelector<HTMLElement>(".buy-actions .btn-solid");
     if (!target) return;
-    const io = new IntersectionObserver(([e]) => setShow(!e.isIntersecting && e.boundingClientRect.bottom < 0), { threshold: 0 });
+    const io = new IntersectionObserver(([e]) => setShow(!e.isIntersecting && (e.boundingClientRect.bottom < 0 || window.innerWidth < 700)), { threshold: 0 });
     io.observe(target);
     return () => io.disconnect();
   }, []);

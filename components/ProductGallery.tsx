@@ -37,6 +37,9 @@ export function ProductGallery({ items }: { items: GalleryItem[] }) {
           </div>
         ))}
       </div>
+      <div className="dots" role="group" aria-label="Choose picture">
+        {items.map((it, n) => (<button key={it.name} type="button" className="dot" aria-label={it.label} aria-pressed={n === i} onClick={() => setI(n)}><i /></button>))}
+      </div>
       <div className="thumbs" role="group" aria-label="Product pictures">
         {items.map((it, n) => (
           <button key={it.name} type="button" className="thumb" aria-pressed={n === i} aria-label={it.label} onClick={() => setI(n)}>

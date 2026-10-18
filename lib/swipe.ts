@@ -10,7 +10,7 @@ export function useSwipeDown(panel: RefObject<HTMLElement | null>, handle: RefOb
     const p = panel.current, h = handle.current;
     if (!active || !p || !h) return;
     let y0 = 0, dy = 0, t0 = 0, drag = false;
-    const down = (e: PointerEvent) => { if (e.pointerType === "mouse") return; drag = true; y0 = e.clientY; dy = 0; t0 = e.timeStamp; p.style.transition = "none"; h.setPointerCapture(e.pointerId); };
+    const down = (e: PointerEvent) => { if (e.pointerType === "mouse" || (e.target as HTMLElement).closest("button")) return; drag = true; y0 = e.clientY; dy = 0; t0 = e.timeStamp; p.style.transition = "none"; h.setPointerCapture(e.pointerId); };
     const move = (e: PointerEvent) => { if (!drag) return; dy = Math.max(0, e.clientY - y0); p.style.transform = `translateY(${dy}px)`; };
     const up = (e: PointerEvent) => {
       if (!drag) return;

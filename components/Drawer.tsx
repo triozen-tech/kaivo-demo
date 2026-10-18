@@ -3,12 +3,15 @@
 import { useEffect, useRef } from "react";
 import { CloseIcon } from "./Icons";
 import { getLenis } from "@/lib/motion";
+import { useSwipeDown } from "@/lib/swipe";
 
 /** Accessible slide-in panel: overlay, Esc, focus trap-lite, scroll lock. */
 export function Drawer({
   open, onClose, side, title, children,
 }: { open: boolean; onClose: () => void; side: "left" | "right"; title: string; children: React.ReactNode }) {
   const panel = useRef<HTMLDivElement>(null);
+  const top = useRef<HTMLDivElement>(null);
+  useSwipeDown(panel, top, onClose, open && side === "right");
 
   useEffect(() => {
     if (!open) return;
@@ -40,9 +43,12 @@ export function Drawer({
     <div className={`drawer drawer-${side}${open ? " is-open" : ""}`} aria-hidden={!open} inert={!open}>
       <div className="drawer-scrim" onClick={onClose} />
       <div className="drawer-panel" data-lenis-prevent role="dialog" aria-modal="true" aria-label={title} tabIndex={-1} ref={panel}>
+        <div className="drawer-top" ref={top}>
+        <span className="drawer-grab" aria-hidden="true" />
         <div className="drawer-head">
           <h2>{title}</h2>
           <button type="button" className="icon-btn" onClick={onClose} aria-label={`Close ${title.toLowerCase()}`}><CloseIcon /></button>
+        </div>
         </div>
         {children}
       </div>
