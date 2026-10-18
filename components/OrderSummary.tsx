@@ -14,7 +14,8 @@ export function OrderSummary() {
   useEffect(() => {
     try {
       const raw = sessionStorage.getItem(ORDER_KEY);
-      setOrder(raw ? (JSON.parse(raw) as Order) : null);
+      const o = raw ? (JSON.parse(raw) as Order) : null;
+      setOrder(o && typeof o.number === "string" && o.number.startsWith("OT-") && Array.isArray(o.lines) ? o : null);
     } catch {
       setOrder(null);
     }
