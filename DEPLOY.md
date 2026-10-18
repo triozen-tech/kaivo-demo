@@ -1,6 +1,6 @@
 # Kaivo: deploy steps (run these in your own terminal)
 
-Kaivo is a Next.js 16 app. Nothing here needs GitHub. Do all of it from the project folder:
+Kaivo is a Next.js 16 app. The code is on GitHub at https://github.com/triozen-tech/kaivo-demo. Local commands run from the project folder:
 
 ```bash
 cd "/Users/hosanna/3D Websites/kaivo"
@@ -18,43 +18,24 @@ npm start            # serves on http://localhost:3019  (PORT=4000 npm start for
 
 Open http://localhost:3019 and click through. Stop with `Ctrl+C`.
 
-## A. Vercel (main option)
+## A. Vercel (main option, from GitHub)
 
-```bash
-npx vercel login                      # follow the prompt (email or the browser link)
-npx vercel                            # preview deploy
-```
+1. In Vercel choose **Add New**, then **Project**.
+2. Import **triozen-tech/kaivo-demo**.
+3. Framework is **Next.js** (detected automatically); leave the other settings as they are.
+4. Click **Deploy**.
 
-Answers for the first `npx vercel` run:
-
-| Question | Answer |
-|---|---|
-| Set up and deploy? | `y` |
-| Which scope? | your own account |
-| Link to existing project? | `n` |
-| What's your project's name? | `kaivo-demo` |
-| In which directory is your code located? | `./` |
-| Want to modify these settings? | `n` (Vercel detects Next.js) |
-
-It prints a preview URL (`https://kaivo-demo-xxxx.vercel.app`). Open it and check it. If it looks right:
-
-```bash
-npx vercel --prod                     # production URL: https://kaivo-demo.vercel.app
-```
+Every push to `main` redeploys the site automatically.
 
 Notes:
-- No Git connection is needed; `npx vercel` uploads the folder directly. If it asks "Connect Git repository?", answer `n`.
-- Optional: to make the share preview image use your final address, add the variable and redeploy:
-  `npx vercel env add NEXT_PUBLIC_SITE_URL production` (value `https://kaivo-demo.vercel.app`), then `npx vercel --prod`.
-  Without it the app uses Vercel's own production URL automatically.
-- A Vercel preview deployment may ask visitors to log in if "Deployment Protection" is on for your account. If your client sees a login page on the preview link, send them the `--prod` link instead, or turn protection off in the project's Settings > Deployment Protection.
+- Optional: to make the share preview image use your final address, add `NEXT_PUBLIC_SITE_URL` (for example `https://kaivo-demo.vercel.app`) under the project's Settings > Environment Variables, then redeploy. Without it the app uses Vercel's own production URL automatically.
+- A Vercel preview deployment may ask visitors to log in if "Deployment Protection" is on for your account. If your client sees a login page on a preview link, send them the production link, or turn protection off in the project's Settings > Deployment Protection.
 
 ### Remove the Vercel deployment afterwards
 
 ```bash
 npx vercel remove kaivo-demo --yes    # deletes the project and all its deployments
 npx vercel ls                         # should no longer list kaivo-demo
-rm -rf .vercel                        # local link folder (safe to delete)
 ```
 
 (You can also delete it in the dashboard: vercel.com > kaivo-demo > Settings > Delete Project.)
