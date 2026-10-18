@@ -2,8 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCategory } from "@/data/categories";
-import { getProduct, products, productsIn } from "@/data/products";
-import { Pic } from "@/components/ProductImage";
+import { getProduct, products, relatedProducts } from "@/data/products";
+import { lifestyle } from "@/data/lifestyle";
+import { ProductGallery } from "@/components/ProductGallery";
 import { Price } from "@/components/Price";
 import { ProductBuy } from "@/components/ProductBuy";
 import { ProductCard } from "@/components/ProductCard";
@@ -13,14 +14,20 @@ export const generateStaticParams = () => products.map((p) => ({ slug: p.slug })
 
 export async function generateMetadata({ params }: PageProps<"/p/[slug]">): Promise<Metadata> {
   const p = getProduct((await params).slug);
-  return { title: p?.name, description: p?.summary };
+  return { title: p?.name, description: p ? `${p.summary} Sample price, Kaivo demo store.` : undefined };
 }
 
 export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
   const p = getProduct((await params).slug);
   if (!p) notFound();
   const cat = getCategory(p.category)!;
-  const related = productsIn(p.category).filter((x) => x.slug !== p.slug).slice(0, 3);
+  const related = relatedProducts(p.slug, 3);
+  const life = lifestyle[products.findIndex((x) => x.slug === p.slug) % lifestyle.length];
+  const gallery = [
+    { name: p.image, alt: p.name, label: "Product", position: undefined },
+    { name: cat.banner, alt: `${cat.name} in the Kaivo range`, label: "In the range", position: cat.focal, zoom: 1.35 },
+    { name: life.img, alt: life.alt, label: "At home", position: life.pos, zoom: 1.2 },
+  ];
 
   return (
     <>
@@ -31,9 +38,7 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
       </div>
 
       <section className="container pdp">
-        <div className="pdp-media" data-img-reveal>
-          <Pic name={p.image} alt={p.name} sizes="(max-width: 900px) 100vw, 50vw" priority />
-        </div>
+        <ProductGallery items={gallery} />
         <div className="pdp-info" data-stagger>
           <p className="label">{cat.name}</p>
           <h1 className="h1">{p.name}</h1>

@@ -13,7 +13,7 @@ import { Motion } from "@/components/Motion";
 const bootScript = `(function(){var d=document.documentElement;if(/[?&]static=1/.test(location.search))return;d.classList.add("mo","mo-hold");setTimeout(function(){d.classList.remove("mo-hold")},3000)})()`;
 
 export const metadata: Metadata = {
-  title: { default: "Kaivo · Home and lifestyle", template: "%s · Kaivo" },
+  title: { default: "Kaivo | demo store", template: "%s | Kaivo demo store" },
   description: "Kaivo is a premium home and lifestyle store: tumblers, retro kitchen, shakers, food jars and beauty. Concept website by Triozen Tech.",
 };
 

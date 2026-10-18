@@ -2,7 +2,7 @@
 import { chromium } from "playwright";
 import fs from "node:fs";
 const base = process.env.BASE || "http://localhost:3018";
-fs.mkdirSync("shots", { recursive: true });
+fs.mkdirSync("shots/final", { recursive: true });
 const browser = await chromium.launch({ channel: "chrome" }).catch(() => chromium.launch());
 const out = [];
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
@@ -15,16 +15,16 @@ page.on("pageerror", (e) => errs.push(e.message));
 await page.goto(base + "/", { waitUntil: "commit" });
 await page.waitForSelector("[data-hero=title]");
 await page.waitForTimeout(300);
-await page.screenshot({ path: "shots/motion-hero-0.3s-1440.png" });
+await page.screenshot({ path: "shots/final/motion-hero-0.3s-1440.png" });
 await page.waitForTimeout(700);
-await page.screenshot({ path: "shots/motion-hero-1.0s-1440.png" });
+await page.screenshot({ path: "shots/final/motion-hero-1.0s-1440.png" });
 await page.waitForTimeout(2500);
 
 // a scrolled home section, caught while it staggers in
 await page.mouse.move(700, 500);
 await page.evaluate(() => window.scrollTo(0, document.querySelector("#cats").getBoundingClientRect().top + scrollY - 200));
 await page.waitForTimeout(450);
-await page.screenshot({ path: "shots/motion-section-1440.png" });
+await page.screenshot({ path: "shots/final/motion-section-1440.png" });
 await page.waitForTimeout(1800);
 
 // hover on a featured card
@@ -33,7 +33,7 @@ await page.waitForTimeout(1800);
 const card = page.locator("#feat ~ .grid .pcard, .grid .pcard").first();
 await card.hover();
 await page.waitForTimeout(900);
-await page.screenshot({ path: "shots/motion-card-hover-1440.png" });
+await page.screenshot({ path: "shots/final/motion-card-hover-1440.png" });
 
 // fly-to-cart midpoint
 await page.goto(base + "/p/retro-kettle", { waitUntil: "networkidle" });
@@ -42,10 +42,10 @@ await page.evaluate(() => window.scrollTo(0, 260));
 await page.waitForTimeout(600);
 await page.getByRole("button", { name: "Add to cart" }).click();
 await page.waitForTimeout(420);
-await page.screenshot({ path: "shots/motion-fly-1440.png" });
+await page.screenshot({ path: "shots/final/motion-fly-1440.png" });
 await page.waitForSelector(".drawer-right.is-open");
 await page.waitForTimeout(250);
-await page.screenshot({ path: "shots/motion-drawer-opening-1440.png" });
+await page.screenshot({ path: "shots/final/motion-drawer-opening-1440.png" });
 await page.waitForTimeout(1200);
 const flyLeft = await page.locator(".fly").count();
 out.push(`fly clones left in DOM: ${flyLeft}`);
@@ -71,7 +71,7 @@ const sp = await ctx.newPage();
 await sp.goto(base + "/?static=1", { waitUntil: "networkidle" });
 await sp.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 100)); } window.scrollTo(0, 0); });
 await sp.waitForTimeout(500);
-await sp.screenshot({ path: "shots/static-home-1440.png", fullPage: true });
+await sp.screenshot({ path: "shots/final/static-home-1440.png", fullPage: true });
 out.push("static: html class = " + JSON.stringify(await sp.evaluate(() => document.documentElement.className)));
 const hidden = await sp.evaluate(() => [...document.querySelectorAll("[data-reveal],[data-stagger]>*,[data-hero],[data-img-reveal]")].filter((e) => getComputedStyle(e).opacity !== "1").length);
 out.push(`static: elements not fully opaque: ${hidden}`);

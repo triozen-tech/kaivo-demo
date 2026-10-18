@@ -30,8 +30,10 @@ export function Header() {
     const show = () => setHidden(false);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    const onFocus = (e: FocusEvent) => { if ((e.target as HTMLElement).closest?.(".header")) show(); }; // keyboard focus brings it back
     window.addEventListener("kaivo:show-header", show);
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("kaivo:show-header", show); };
+    document.addEventListener("focusin", onFocus);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("kaivo:show-header", show); document.removeEventListener("focusin", onFocus); };
   }, []);
 
   useEffect(() => { setMenuOpen(false); setDrawerOpen(false); }, [path, setMenuOpen, setDrawerOpen]);

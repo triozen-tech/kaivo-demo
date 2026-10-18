@@ -8,7 +8,7 @@ const routes = [
   ["home", "/"], ["category", "/c/retro-kitchen"], ["product", "/p/retro-kettle"],
   ["cart", "/cart"], ["checkout", "/checkout"], ["success", "/order/success"],
 ];
-fs.mkdirSync("shots", { recursive: true });
+fs.mkdirSync("shots/final", { recursive: true });
 
 const browser = await chromium.launch({ channel: "chrome" }).catch(() => chromium.launch());
 const problems = [];
@@ -23,7 +23,7 @@ for (const [w, h] of sizes) {
 
   const shot = async (name, full = true) => {
     await page.waitForTimeout(400);
-    await page.screenshot({ path: `shots/${name}-${w}.png`, fullPage: full });
+    await page.screenshot({ path: `shots/final/${name}-${w}.png`, fullPage: full });
     const sw = await page.evaluate(() => document.documentElement.scrollWidth);
     if (sw > w) problems.push(`${w}: ${name} overflows horizontally (${sw})`);
   };

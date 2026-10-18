@@ -7,7 +7,7 @@ import { isStatic } from "./motion";
  */
 export function flyToCart(source: HTMLElement | null): Promise<void> {
   const btn = document.querySelector<HTMLElement>("[data-cart-btn]");
-  const img = source?.querySelector("img");
+  const img = source?.querySelector<HTMLImageElement>(".is-active img") ?? source?.querySelector<HTMLImageElement>("img");
   if (isStatic() || !source || !btn || !img) return Promise.resolve();
 
   window.dispatchEvent(new Event("kaivo:show-header")); // the header may be tucked away

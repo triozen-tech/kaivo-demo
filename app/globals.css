@@ -163,9 +163,9 @@ button { cursor: pointer; }
 }
 @media (min-width: 700px) and (max-width: 999px) {
   .cat-tile:nth-child(n + 3) { grid-column: span 3; }
-  .cat-tile:nth-child(5) { grid-column: 1 / -1; }
+  .cat-tile:nth-child(5) { grid-column: 2 / span 4; }
   .cat-tile:nth-child(n + 3) .cat-img { aspect-ratio: 16 / 10; }
-  .cat-tile:nth-child(5) .cat-img { aspect-ratio: 21 / 9; }
+  .cat-tile:nth-child(5) .cat-img { aspect-ratio: 4 / 3; }
 }
 
 /* product grid + cards */
@@ -249,7 +249,17 @@ select:hover { border-color: var(--ink); }
 .crumbs a:hover { color: var(--clay-deep); }
 .crumbs [aria-current] { color: var(--ink); }
 .pdp { display: grid; gap: 32px; padding-top: 12px; }
-.pdp-media { position: relative; aspect-ratio: 3 / 4; border-radius: var(--radius); overflow: hidden; background: var(--card); }
+.pdp-gallery { display: grid; gap: 14px; }
+.pdp-media { position: relative; aspect-ratio: 3 / 4; border-radius: var(--radius); overflow: hidden; background: var(--card); touch-action: pan-y; }
+.pdp-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s var(--ease); }
+.pdp-slide.is-active { opacity: 1; }
+.pdp-zoom { position: absolute; inset: 0; }
+.thumbs { display: flex; gap: 12px; }
+.thumb { position: relative; flex: 0 0 76px; padding: 0; border: 0; background: none; border-radius: 12px; cursor: pointer; }
+.thumb-img { position: relative; display: block; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--card); opacity: 0.6; transition: opacity 0.3s; }
+.thumb::after { content: ""; position: absolute; inset: -3px; border-radius: 15px; border: 1.5px solid var(--ink); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+.thumb[aria-pressed="true"] .thumb-img, .thumb:hover .thumb-img { opacity: 1; }
+.thumb[aria-pressed="true"]::after { opacity: 1; }
 .pdp-info { display: grid; gap: 16px; align-content: start; justify-items: start; }
 .pdp-block { width: 100%; padding-top: 24px; margin-top: 8px; border-top: 1px solid var(--line); }
 .ticks li { position: relative; padding: 6px 0 6px 26px; }
@@ -258,7 +268,7 @@ select:hover { border-color: var(--ink); }
 .details dt { color: var(--muted); font-size: 0.88rem; }
 @media (min-width: 900px) {
   .pdp { grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
-  .pdp-media { position: sticky; top: 100px; }
+  .pdp-gallery { position: sticky; top: 100px; }
   .pdp-info { padding-top: 16px; gap: 18px; }
 }
 .buy { width: 100%; display: grid; gap: 18px; margin-top: 10px; padding: 22px; background: var(--card); border-radius: var(--radius); }
@@ -386,3 +396,12 @@ html:not(.mo) .marquee-dup { display: none; }
 html:not(.mo) .marquee-track { width: auto; justify-content: center; }
 html:not(.mo) .marquee-half { flex-wrap: wrap; justify-content: center; row-gap: 6px; }
 html:not(.mo) .marquee-half li:last-child i { display: none; }
+
+/* room before the footer on every page except home (its last band sits on the footer on purpose) */
+main { padding-bottom: 96px; }
+main:has(.trust) { padding-bottom: 0; }
+/* anchored / focused fields never hide under the sticky header */
+input, select, textarea, [id] { scroll-margin-top: 96px; }
+/* short pages (404, empty cart): the footer sits at the bottom of the viewport */
+body { min-height: 100dvh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }

@@ -1,4 +1,4 @@
-import type { CategorySlug } from "./categories";
+import { categories, type CategorySlug } from "./categories";
 
 export type Product = {
   slug: string;
@@ -110,3 +110,17 @@ export const getProduct = (slug: string) => products.find((p) => p.slug === slug
 export const productsIn = (category: string) => products.filter((p) => p.category === category);
 export const featuredProducts = () =>
   products.filter((p) => p.featured).sort((a, b) => a.featured! - b.featured!).slice(0, 6);
+
+/** Always `n` other products: the same category first, then the following categories in menu order. */
+export const relatedProducts = (slug: string, n = 3) => {
+  const p = getProduct(slug);
+  if (!p) return [];
+  const order = categories.map((c) => c.slug);
+  const start = order.indexOf(p.category);
+  const ranked = [...products.filter((x) => x.slug !== slug)].sort((a, b) => {
+    const da = (order.indexOf(a.category) - start + order.length) % order.length;
+    const db = (order.indexOf(b.category) - start + order.length) % order.length;
+    return da - db;
+  });
+  return ranked.slice(0, n);
+};

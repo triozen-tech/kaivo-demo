@@ -3,7 +3,10 @@ import fs from "node:fs";
 const dir="/Users/hosanna/3D Websites/kaivo/";
 for (const f of fs.readdirSync(dir+"raw/clean")) {
   if(!f.endsWith(".jpg")) continue;
-  const i=await sharp(dir+"raw/clean/"+f).rotate().webp({quality:92}).toFile(dir+"public/images/kaivo/"+f.replace(".jpg",".webp"));
+  let img=sharp(dir+"raw/clean/"+f).rotate();
+  // b-beauty has a hard seam at exactly 50% in the original (a blank extension on the left): keep the right half only
+  if(f==="b-beauty.jpg") img=sharp(await img.extract({left:1380,top:0,width:2752-1380,height:1536}).toBuffer());
+  const i=await img.webp({quality:92}).toFile(dir+"public/images/kaivo/"+f.replace(".jpg",".webp"));
   console.log(f,i.width,i.height,Math.round(i.size/1024)+"KB");
 }
 // contact sheet

@@ -10,7 +10,7 @@ export const generateStaticParams = () => categories.map((c) => ({ slug: c.slug 
 
 export async function generateMetadata({ params }: PageProps<"/c/[slug]">): Promise<Metadata> {
   const c = getCategory((await params).slug);
-  return { title: c?.name, description: c?.tagline };
+  return { title: c?.name, description: c ? `${c.tagline} Shop ${c.name.toLowerCase()} at the Kaivo demo store.` : undefined };
 }
 
 export default async function CategoryPage({ params }: PageProps<"/c/[slug]">) {

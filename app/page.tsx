@@ -4,13 +4,9 @@ import { featuredProducts } from "@/data/products";
 import { Pic } from "@/components/ProductImage";
 import { ProductCard } from "@/components/ProductCard";
 import { ArrowIcon } from "@/components/Icons";
+import { lifestyle } from "@/data/lifestyle";
 import { Marquee } from "@/components/Marquee";
 
-const lifestyle = [
-  { img: "l-1", alt: "A cream kettle steaming on a wooden counter beside a cup and a plant", pos: "40% 50%", caption: "Slow mornings" },
-  { img: "l-2", alt: "A shaker bottle and a folded towel in a canvas tote on a wooden bench", pos: "55% 50%", caption: "Out the door" },
-  { img: "l-3", alt: "Serum and cream bottles on a wooden shelf in window light", pos: "30% 50%", caption: "Evening rituals" },
-];
 
 const trust = [
   { title: "Free sample shipping", text: "Standard delivery is free on every demo order.", d: "M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a1.5 1.5 0 1 0 0-.01M17 19a1.5 1.5 0 1 0 0-.01" },
@@ -41,7 +37,7 @@ export default function Home() {
         <div className="cat-grid" data-stagger>
           {categories.map((c) => (
             <Link key={c.slug} href={`/c/${c.slug}`} className="cat-tile">
-              <span className="cat-img"><Pic name={c.banner} alt="" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 40vw" position={c.focal} /></span>
+              <span className="cat-img"><Pic name={c.banner} alt="" sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 40vw" position={c.tile} /></span>
               <span className="cat-meta">
                 <span className="cat-name">{c.name}</span>
                 <span className="cat-tag">{c.tagline}</span>
