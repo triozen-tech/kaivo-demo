@@ -8,3 +8,6 @@ next-env.d.ts
 shots/r6b/raw
 recordings/
 shots/r6c/raw
+.vercel/
+*.pem
+*.key
