@@ -8,6 +8,7 @@ import { CartProvider } from "@/components/CartProvider";
 import { Header } from "@/components/Header";
 import { CartDrawer } from "@/components/CartDrawer";
 import { Footer } from "@/components/Footer";
+import { TrustBand } from "@/components/Trust";
 import { Motion } from "@/components/Motion";
 import { Cursor } from "@/components/Cursor";
 import { Intro } from "@/components/Intro";
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <a href="#main" className="skip">Skip to content</a>
           <Header />
           <main id="main">{children}</main>
+          <TrustBand />
           <Footer />
           <CartDrawer />
           <Motion />

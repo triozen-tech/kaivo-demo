@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { categories } from "@/data/categories";
+import { Newsletter } from "./Newsletter";
 
 export function Footer() {
   return (
     <footer className="footer">
+      <div className="container"><Newsletter /></div>
       <div className="container footer-grid">
         <div className="footer-brand">
           <p className="logo">Kaivo</p>

@@ -10,13 +10,9 @@ import { MorphLink } from "@/components/MorphLink";
 import { Showcase } from "@/components/Showcase";
 import { UspRow, CategoryIcons } from "@/components/HomeBands";
 import { SampleNote } from "@/components/SampleNote";
+import { PromoBanner, ClosingBanner } from "@/components/Bands";
+import { SocialGrid } from "@/components/SocialGrid";
 
-
-const trust = [
-  { title: "Free sample shipping", text: "Standard delivery is free on every demo order.", d: "M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a1.5 1.5 0 1 0 0-.01M17 19a1.5 1.5 0 1 0 0-.01" },
-  { title: "Easy returns", text: "Changed your mind? Send it back within 30 days.", d: "M4 12a8 8 0 1 0 3-6.2M4 4v4h4" },
-  { title: "Secure demo checkout", text: "A concept store: no payment is ever taken.", d: "M6 11V8a6 6 0 0 1 12 0v3M5 11h14v9H5z" },
-];
 
 export default function Home() {
   const feat = featuredProducts();
@@ -71,6 +67,8 @@ export default function Home() {
 
       <Marquee />
 
+      <PromoBanner />
+
       <section className="section container" aria-labelledby="life" data-tint="clay">
         <div className="section-head" data-reveal>
           <h2 id="life" className="h2">Made for everyday</h2>
@@ -85,17 +83,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="trust" aria-label="Why shop with Kaivo">
-        <div className="container trust-grid" data-stagger>
-          {trust.map((t) => (
-            <div key={t.title} className="trust-item">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d={t.d} stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              <h3>{t.title}</h3>
-              <p>{t.text}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+      <SocialGrid />
+      <ClosingBanner />
     </>
   );
 }

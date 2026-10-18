@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { products } from "@/data/products";
 import { ShopBrowser } from "@/components/ShopBrowser";
+import { ClosingBanner } from "@/components/Bands";
 
 export const metadata: Metadata = { title: "Shop all", description: "Every Kaivo product in one place. Sample prices, concept store." };
 
@@ -13,6 +14,7 @@ export default function ShopPage() {
         <h1 className="h1">Shop all</h1>
         <Suspense><ShopBrowser products={products} paged /></Suspense>
       </div>
+      <ClosingBanner href="/c/food-jars" cta="Shop food jars" />
     </>
   );
 }
