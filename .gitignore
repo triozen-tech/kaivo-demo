@@ -5,3 +5,4 @@ shots/
 .DS_Store
 next-env.d.ts
 *.tsbuildinfo
+shots/r6b/raw

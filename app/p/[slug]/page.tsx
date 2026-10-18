@@ -55,7 +55,7 @@ export default async function ProductPage({ params }: PageProps<"/p/[slug]">) {
           <ProductBuy slug={p.slug} />
           <TrustBox />
           <Accordion items={[
-            { id: "desc", title: "Description", open: true, children: (<><p>{p.summary}</p><ul className="ticks">{p.features.map((f) => <li key={f}>{f}</li>)}</ul></>) },
+            { id: "desc", title: "Description", open: true, children: (<><ul className="ticks">{p.features.map((f) => <li key={f}>{f}</li>)}</ul></>) },
             { id: "ship", title: "Shipping & returns", children: (<ul className="plain"><li>Free sample shipping on every demo order, usually shown as 3 to 5 working days.</li><li>Easy 30-day returns on unused items in their original packaging.</li><li>This is a concept store: nothing is charged and nothing ships.</li></ul>) },
             { id: "spec", title: "Specifications", children: (<dl className="details">{p.details.map((d) => (<div key={d.label}><dt>{d.label}</dt><dd>{d.value}</dd></div>))}</dl>) },
             { id: "rev", title: "Customer reviews", note: "Sample", children: <ReviewsPanel product={p} /> },
